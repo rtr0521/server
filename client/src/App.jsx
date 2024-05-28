@@ -12,8 +12,8 @@ import Login from './components/pages/users/Auth/login';
 import ForgetPassword from './components/pages/users/Auth/forgetPassword';
 import ResetPassword from './components/pages/users/Auth/resetPassword';
 import Userdashboard from './components/pages/users/Home/Pages/userdashboard';
-import Profile from './components/pages/users/Home/Pages/profile';
-import ViewAnalytics from './components/pages/users/Home/Pages/viewAnalytics';
+import Profile from './components/pages/users/Home/Pages/profile';/* 
+import ViewAnalytics from './components/pages/users/Home/Pages/viewAnalytics'; */
 import Activities from './components/pages/users/Home/Pages/activities';
 
 /* admin */
@@ -54,7 +54,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/userdashboard" element={<Userdashboard />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/viewAnalytics" element={<ViewAnalytics />} />
+{/*           <Route path="/viewAnalytics" element={<ViewAnalytics />} /> */}
           <Route path="/activities" element={<Activities />} />
           
 

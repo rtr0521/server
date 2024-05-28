@@ -12,11 +12,11 @@ const SidebarData = [
     icon: <HiOutlineViewGrid />,
     path: '/userdashboard'
   },
-  {
+/*   {
     title: 'View Analytics',
     icon: <IoIosAnalytics />,
     path: '/viewAnalytics'
-  },
+  } */,
   {
     title: 'Profile Settings',
     icon: <CgProfile />,

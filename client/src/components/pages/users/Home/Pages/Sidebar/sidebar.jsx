@@ -34,7 +34,7 @@ export const Sidebar = () => {
 
   const fetchProfileInfo = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/user/profile");
+      const response = await axios.get("http://localhost:5000/profile/:id");
       setProfileInfo(response.data);
     } catch (error) {
       console.error('Error fetching user profile:', error);

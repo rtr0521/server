@@ -264,7 +264,7 @@ const UserDashboard = () => {
                 {activities.map((activity) => (
                   <tr key={activity._id}>
                     <td className="px-4 py-5"><input type="checkbox" className="size-5 rounded border-gray-300" /></td>
-                    <td className="whitespace-nowrap px-4 py-2  font-medium text-white"><Link to = "/activities">{activity.name}</Link></td>
+                    <td className="whitespace-nowrap px-4 py-2  font-medium text-white"><Link to={`/activities/${activity._id}`}>{activity.name}</Link></td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
                       <div className="relative pt-1">
                         <div className="flex mb-2 items-center justify-between">

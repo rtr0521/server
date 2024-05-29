@@ -8,7 +8,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { IoMdArrowDropleftCircle, IoMdArrowDroprightCircle } from "react-icons/io";
 import { Sidebar } from './Sidebar/sidebar';
-
+import { Link } from 'react-router-dom'
 const UserDashboard = () => {
   const [activity, setActivity] = useState({
     name: '',
@@ -121,29 +121,21 @@ const UserDashboard = () => {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <div className='bg-white flex-grow'>
-        <header className='flex items-center justify-between bg-white w-full h-32 p-7'>
+      <div className='w-full xl:flex-grow'>
+        <header className='flex items-center justify-between w-full h-32 p-7'>
           <div className="header-container">
             <div className="header-info flex items-center justify-center">
-              <h1 className='text-2xl mr-3 font-bold'>Military Performance Monitoring</h1>
-              <span className='bg-transparent border-1 border-black rounded-2xl p-2 text-black'>70 Platoon</span>
+              <h1 className='text-2xl font-bold text-white'>Military Performance Monitoring</h1>
+              <span className='hidden bg-transparent border-1 border-white rounded-2xl p-2 text-white'>70 Platoon</span>
             </div>
             <div className="header-sub">
-              <p className='text-md text-gray-500'>Keep track of vendor and their security ratings.</p>
+              <p className=' text-md text-gray-500'>Keep track of vendor and their security ratings.</p>
             </div>
           </div>
           <div className="button">
-            <button 
-              className="btn gap-2 rounded border text-white bg-black px-8 py-3" 
-              onClick={() => {
-                clearForm();
-                document.getElementById('my_modal_5').showModal();
-              }}
-            >
-              <IoMdAdd /> Add Activity
-            </button>
+            
             <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-              <div className="modal-box bg-white border-black border-1">
+              <div className="modal-box  border-black border-1">
                 <h3 className="font-bold text-lg bg-transparent border-b border-white text-black x">Add a To Do! ✏️</h3>
                 <form onSubmit={handleSubmit}>
                   <div className="py-4 text-gray-400">Activity Name: </div>
@@ -215,18 +207,21 @@ const UserDashboard = () => {
             </dialog>
           </div>        
         </header>
-        <section className='w-full h-5/6 bg-white p-7'>
+        <section className='w-full h-5/6  p-7'>
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className='text-xl font-bold text-gray-400'>To Do: Progress Report</h1>
+            <div className='hidden'>
+              <button className="btn btn-primary mr-2 w-32">View All</button>
+              <button className="btn btn-outline mr-2 w-32">In Progress</button>
+              <button className="btn btn-outline mr-2 w-32">Done</button>
+              <button className="btn btn-outline w-32">Undone</button>
             </div>
-            <div className="relative">
+            <div className="w-96 flex items-center justify-center">
               <label htmlFor="Search" className="sr-only">Search</label>
               <input
                 type="text"
                 id="Search"
                 placeholder="Search for..."
-                className="w-96 rounded-md bg-white border-1 border-gray-300 shadow-md p-3 pe-10 sm:text-sm"
+                className="w-96 hidden rounded-md border-1 mr-3 border-gray-300 shadow-md p-3 pe-10 sm:text-sm"
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -236,31 +231,41 @@ const UserDashboard = () => {
                   <Io.IoSearchSharp />
                 </button>
               </span>
+              <button 
+              className="btn w-full gap-2 rounded border-transparent btn-primary px-8 py-3" 
+              onClick={() => {
+                clearForm();
+                document.getElementById('my_modal_5').showModal();
+              }}
+            >
+              <IoMdAdd /> Add Activity
+            </button>
             </div>
+            
           </div>
-          <div className="overflow-x-auto mt-12 shadow-md">
-            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <div className="overflow-x-auto mt-12 shadow-md rounded-lg">
+            <table className="min-w-full divide-y-2 divide-gray-200 bg-dark text-sm">
               <thead className="ltr:text-left rtl:text-right">
                 <tr>
                   <th className="px-4 py-6">
                     <label htmlFor="SelectAll" className="sr-only">Select All</label>
                     <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
                   </th>
-                  <th className="inline-flex items-center justify-start mt-3 whitespace-nowrap px-4 py-2 font-bold text-gray-900"> Activities <FaCaretDown className='ml-2'/></th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Progress</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Start Date</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">End Date</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Status</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Edit</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900">Delete</th>
+                  <th className="inline-flex items-center justify-start text-white mt-3 whitespace-nowrap px-4 py-2 font-bold"> Activities <FaCaretDown className='ml-2'/></th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Progress</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Start Date</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">End Date</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Status</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Edit</th>
+                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Delete</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {activities.map((activity) => (
                   <tr key={activity._id}>
                     <td className="px-4 py-5"><input type="checkbox" className="size-5 rounded border-gray-300" /></td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{activity.name}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <td className="whitespace-nowrap px-4 py-2  font-medium text-white"><Link to = "/activities">{activity.name}</Link></td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
                       <div className="relative pt-1">
                         <div className="flex mb-2 items-center justify-between">
                           <div className="flex-grow bg-gray-200 h-1.5">
@@ -269,9 +274,9 @@ const UserDashboard = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{activity.dateStart}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{activity.dateEnd}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity.dateStart}</td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity.dateEnd}</td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
                       <div className="flex items-center space-x-2">
                         <GoDotFill className={activity.status === 'Todo' ? 'text-red-500' : activity.status === 'Ongoing' ? 'text-yellow-500' : 'text-green-500'} />
                         <span>{activity.status}</span>
@@ -300,7 +305,7 @@ const UserDashboard = () => {
             <div className="flex items-center space-x-2">
 
               <button 	
-				className="inline-flex items-center gap-2 ml-2 rounded border border-black bg-transparent px-8 py-3 text-black hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" 
+				className="inline-flex items-center gap-2 ml-2 rounded border border-black bg-secondary px-8 py-3 text-white " 
 			  	disabled={currentPage === 1} 
 				onClick={goToPreviousPage}>
 				<span className="text-sm font-medium"> Previous </span>
@@ -308,7 +313,7 @@ const UserDashboard = () => {
 			  </button>
 
               <button 
-			  	className="inline-flex items-center gap-2 rounded border border-black bg-transparent px-8 py-3 text-black hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500" 
+			  	className="inline-flex items-center gap-2 rounded border border-black bg-secondary px-8 py-3 text-white" 
 			  	disabled={currentPage === totalPages} 
 				onClick={goToNextPage}><IoMdArrowDroprightCircle />
 			  	<span className="text-sm font-medium"> Next </span>

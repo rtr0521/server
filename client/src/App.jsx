@@ -18,7 +18,10 @@ import Activities from './components/pages/users/Home/Pages/activities';
 
 /* admin */
 import AuthAdmin from './components/pages/admin/auth';
-import Dashboard from './components/pages/admin/Home/dashboard';
+import AdminAnalytics from './components/pages/admin/Home/adminAnalytics';
+import Pending from './components/pages/admin/Home/pending';
+import AdminProfile from './components/pages/admin/Home/adminProfile';
+import Accepted from './components/pages/admin/Home/accepted'
 
 
 import './App.css';
@@ -60,7 +63,10 @@ function App() {
 
           {/* Admin */}
           <Route path="/admin/auth" element={<AuthAdmin />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/adminAnalytics" element={<AdminAnalytics />} />
+          <Route path="/adminProfile" element={<AdminProfile />} />
+          <Route path="/pending" element={<Pending />} />
+          <Route path="/accepted" element={<Accepted />} />
         </Routes>
       </div>
     </Router>

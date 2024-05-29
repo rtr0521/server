@@ -46,7 +46,7 @@ function Login() {
 
             // Redirect to the desired page after a brief delay
             setTimeout(() => {
-                navigate('/admin/dashboard');
+                navigate('/userDashboard');
             }, 2000);
         } catch (error) {
             // Set loginError to true and update the error message

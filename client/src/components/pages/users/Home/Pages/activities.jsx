@@ -62,36 +62,29 @@ const Activities = () => {
 
   const moveToInProgress = async (taskId) => {
     try {
-      console.log(`Attempting to move task ${taskId} to In Progress`);
-      const response = await axios.put(`http://localhost:5000/status/tasks/${taskId}`, { status: 'inProgress' });
-      console.log('Response from server:', response.data);
-  
+      const response = await axios.put(`http://localhost:5000/tasks/status/${taskId}`, { status: 'inProgress' });
       if (response.status === 200) {
         const updatedTask = response.data;
         setTodos(todos.filter(task => task._id !== taskId));
         setInProgress([...inProgress, updatedTask]);
       }
     } catch (error) {
-      console.error('Error moving task to "In Progress":', error);
+      console.error('Error moving task to "In Progress":', error.response ? error.response.data : error.message);
     }
   };
   
   const moveToDone = async (taskId) => {
     try {
-      console.log(`Attempting to move task ${taskId} to Done`);
-      const response = await axios.put(`http://localhost:5000/sta/tasks/${taskId}`, { status: 'done' });
-      console.log('Response from server:', response.data);
-  
+      const response = await axios.put(`http://localhost:5000/tasks/status/${taskId}`, { status: 'done' }); // Changed status to 'done'
       if (response.status === 200) {
         const updatedTask = response.data;
-        setInProgress(inProgress.filter(task => task._id !== taskId));
-        setDone([...done, updatedTask]);
+        setInProgress(inProgress.filter(task => task._id !== taskId)); 
+        setDone([...done, updatedTask]); // Add to 'done' array
       }
     } catch (error) {
-      console.error('Error moving task to "Done":', error);
+      console.error('Error moving task to "Done":', error.response ? error.response.data : error.message);
     }
   };
-  
   
 
   const deleteTask = async (taskId) => {

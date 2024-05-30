@@ -88,7 +88,7 @@ const UserDashboard = () => {
           params: {
             search: searchQuery,
             page: currentPage,
-            limit: 4  // You can adjust the limit as needed
+            limit: 10  // You can adjust the limit as needed
           }
         });
         setActivities(response.data.activities);
@@ -180,6 +180,9 @@ const UserDashboard = () => {
                       required
                     />
                   </div>
+
+                  
+
                   <select 
                     name="status"
                     value={activity.status}
@@ -192,6 +195,8 @@ const UserDashboard = () => {
                     <option value="Ongoing">On Progress</option>
                     <option value="Done">Done</option>
                   </select>
+
+
                   <div className="modal-action">
                     <button className='btn bg-black text-white mr-2' type="submit" onClick={handleSubmit}>
                       {editing ? 'Update' : 'Submit'}

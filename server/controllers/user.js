@@ -21,7 +21,6 @@ exports.getActivityById = async (req, res) => {
   }
 };
 
-
 // Get all tasks for a specific activity
 exports.getAllTasksForActivity = async (req, res) => {
   try {

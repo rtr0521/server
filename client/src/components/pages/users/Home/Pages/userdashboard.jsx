@@ -274,8 +274,8 @@ const UserDashboard = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity.dateStart}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity.dateEnd}</td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateStart).toLocaleDateString() : "Loading..."}</td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateEnd).toLocaleDateString() : "Loading..."}</td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
                       <div className="flex items-center space-x-2">
                         <GoDotFill className={activity.status === 'Todo' ? 'text-red-500' : activity.status === 'Ongoing' ? 'text-yellow-500' : 'text-green-500'} />

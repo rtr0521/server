@@ -14,6 +14,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/uploads', express.static('uploads')); // Serve uploaded files
+
 /* // Configure nodemailer
 const transporter = nodemailer.createTransport({
     service: 'Gmail', // Change this to your email service
@@ -158,33 +160,7 @@ app.post('/signup', async (req, res) => {
 app.get("/", (req, res) => {
     res.send("Welcome to the server");
 });
-/* // Login route
-app.post('/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
 
-        // Find user by username
-        const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Check password
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        // Create a token (e.g., JWT) and send it to the client
-        const token = jwt.sign({ id: user._id, username: user.username }, secretKey, { expiresIn: '1h' });
-
-        res.status(200).json({ message: 'Login successful', token });
-    } catch (error) {
-        console.error('Error logging in:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
- */
 // Import the authRoutes module
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
@@ -192,30 +168,6 @@ const userRoutes = require('./routes/user');
 // Use the authRoutes
 app.use("/admin", adminRoutes);
 app.use(userRoutes);
-
-/* //Login Admin Auth Route
-app.post('/auth/login', async (req, res) => {
-    try {
-        const { username, password } = req.body;
-
-        // Find user by username
-        const adminAuth = await AuthAdmin.findOne({ username });
-        if (!adminAuth) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Check password (direct comparison)
-        if (password !== adminAuth.password) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        res.status(200).json({ message: 'Login successful' });
-    } catch (error) {
-        console.error('Error logging in:', error);
-        res.status(500).json({ message: 'Server error' });
-    }
-}); */
-
 
 // Start the server
 app.listen(port, () => {

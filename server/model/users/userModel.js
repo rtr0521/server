@@ -19,6 +19,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a password!"]
     },
+    profilePicture: {
+        type: String,
+        required: [true, "Please provide a profile picture!"] // Make profile picture required
+    },
     // Add resetToken and resetTokenExpiry fields for password reset functionality
     resetToken: {
         type: String,

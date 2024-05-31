@@ -25,16 +25,10 @@ router.delete('/activities/:id', userController.deleteActivity);
 /* Get ID to All Data */
 router.get('/activities/:id', userController.getActivityById);
 router.get('/activities/:id/tasks', userController.getAllTasksForActivity);
-// Add new task to an activity
 router.post('/activities/:id/tasks', userController.addTask);
 router.put('/tasks/:id', userController.updateTask);
 router.delete('/tasks/:id', userController.deleteTask);
-
-// Update task status by ID
 router.put('/tasks/status/:id', userController.updateTaskStatus);
-
-
-
 
 // Export the router User Data Visualization Donut
 router.get('/status-data', userController.getStatusData);

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Sidebar } from './Sidebar/sidebar';
-import { FaRegCalendarCheck, FaCheckCircle, FaTrash, FaEdit, FaTasks } from "react-icons/fa";
+import { FaRegCalendarCheck, FaCheckCircle, FaTrash, FaEdit, FaTasks, FaCheckSquare  } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
+import { GoDotFill } from 'react-icons/go'; // Import the correct icon
 
 const Activities = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const Activities = () => {
   const [todos, setTodos] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [done, setDone] = useState([]);
+  const [progress, setProgress] = useState(0);
   const [editDescription, setEditDescription] = useState('');
   const [currentEditId, setCurrentEditId] = useState(null);
   const [currentEditType, setCurrentEditType] = useState('');
@@ -20,16 +22,23 @@ const Activities = () => {
       try {
         const response = await axios.get(`http://localhost:5000/activities/${id}/tasks`);
         const tasksData = response.data;
+        
         setTodos(tasksData.filter(task => task.status === 'todo'));
         setInProgress(tasksData.filter(task => task.status === 'inProgress'));
         setDone(tasksData.filter(task => task.status === 'done'));
+
+        // Calculate progress
+        const totalTasks = tasksData.length;
+        const completedTasks = inProgress.length + done.length;
+        const progressPercent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+        setProgress(progressPercent);
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
     };
+
     fetchTask();
-  }, [id]);
-  
+  }, [id]); // Fetch tasks whenever the activity ID changes
 
   useEffect(() => {
     const fetchActivity = async () => {
@@ -44,17 +53,15 @@ const Activities = () => {
   }, [id]);
   
 
-    // Inside the Activities component
+
+
   const getProgressSummary = () => {
     const totalTasks = todos.length + inProgress.length + done.length;
-    if (totalTasks === 0) return "No tasks";
+    if (totalTasks === 0) return 0;
 
     const donePercent = Math.round((done.length / totalTasks) * 100);
-    if (donePercent === 100) return "Done";
-    if (inProgress.length > 0) return "In Progress";
-    return "To Do";
+    return donePercent;
   };
-
 
   const addTask = async () => {
     const newTaskDescription = document.getElementById('task-description').value;
@@ -157,11 +164,15 @@ const Activities = () => {
           <h1 className='text-4xl font-bold mb-3 text-white '>🤖 {activity ? activity.name : "Loading..."}</h1>
           <div className="flex items-center justify-start">
 
-            <FaTasks className='text-lg' /> 
-            <p className='text-gray-400 ml-2'>Progress:</p>
-            <span className='bg-gray-500 text-white border p-2 ml-2 rounded-lg'>
-                {getProgressSummary()}
-            </span>
+          <FaTasks className="text-lg" /> 
+        <p className="text-gray-400 ml-2">Progress:</p>
+        <div className="w-40 h-4 bg-gray-200 rounded-full ml-2">
+          <div className="h-full bg-blue-500 rounded-full" style={{ width: `${getProgressSummary()}%` }}></div>
+        </div>
+        <span className="ml-2">
+          <GoDotFill className={`${getProgressSummary() === 100 ? 'text-green-500' : 'text-gray-400'}`}/>
+        </span>
+
 
             <FaRegCalendarCheck className='text-lg' />
             <p className='text-gray-400 ml-2'>Date Started</p>
@@ -196,7 +207,7 @@ const Activities = () => {
             </div>
           </dialog>
         </header>
-
+           
         <section className='max-w-7xl mt-1'>
           <div className="w-full flex items-start justify-between">
             <div className="flex flex-col w-full mr-5">

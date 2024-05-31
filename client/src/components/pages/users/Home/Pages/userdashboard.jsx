@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as Io from "react-icons/io5";
+import ProgressBar from 'react-bootstrap/ProgressBar'; 
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { IoMdAdd } from "react-icons/io";
 import { FaCaretDown } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
@@ -9,6 +11,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoMdArrowDropleftCircle, IoMdArrowDroprightCircle } from "react-icons/io";
 import { Sidebar } from './Sidebar/sidebar';
 import { Link } from 'react-router-dom'
+
 const UserDashboard = () => {
   const [activity, setActivity] = useState({
     name: '',
@@ -23,6 +26,10 @@ const UserDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [activityProgress, setActivityProgress] = useState({}); // State for progress
+  const [error, setError] = useState(null);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,26 +87,52 @@ const UserDashboard = () => {
     setEditing(false);
     setCurrentActivityId(null);
   };
-
+  
   useEffect(() => {
-    const fetchActivities = async () => {
+    const fetchActivitiesWithProgress = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/activities', {
+        const activitiesResponse = await axios.get('http://localhost:5000/activities', {
           params: {
             search: searchQuery,
             page: currentPage,
-            limit: 10  // You can adjust the limit as needed
-          }
+            limit: 10,
+          },
         });
-        setActivities(response.data.activities);
-        setTotalPages(response.data.totalPages);
+  
+        const activities = activitiesResponse.data.activities;
+        setActivities(activities);
+        setTotalPages(activitiesResponse.data.totalPages);
+  
+        const newActivityProgress = {};
+        for (const activity of activities) {
+          const taskResponse = await axios.get(`http://localhost:5000/activities/${activity._id}/tasks`);
+          const tasksData = taskResponse.data;
+  
+          // Progress Calculation 
+          const totalTasks = tasksData.length;
+          const completedTasks = tasksData.filter(task => task.status === 'done').length;
+          const inProgressTasks = tasksData.filter(task => task.status === 'inProgress').length; 
+          const progress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+  
+          // Progress Variant (Color) - Corrected
+          let progressVariant = 'danger'; 
+          if (inProgressTasks > 0) { // Check if there are any in-progress tasks
+            progressVariant = 'warning'; // Yellow if there's at least one task in progress
+          } else if (completedTasks === totalTasks) { // Check if all tasks are done
+            progressVariant = 'success'; // Green if all tasks are done
+          }
+  
+          newActivityProgress[activity._id] = { value: progress, variant: progressVariant };
+        }
+  
+        setActivityProgress(newActivityProgress);
       } catch (error) {
         console.error('Error fetching activities:', error);
       }
     };
-
-    fetchActivities();
-  }, [searchQuery, currentPage]);
+  
+    fetchActivitiesWithProgress();
+  }, [searchQuery, currentPage]); 
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -117,7 +150,7 @@ const UserDashboard = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
+  
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -160,6 +193,7 @@ const UserDashboard = () => {
                       placeholder="Enter any additional order notes..."
                       required
                     ></textarea>
+
                   </div>
                   <div className="py-4 text-gray-400">Choose a Date: </div>
                   <div className="flex items-center justify-center mb-6">
@@ -181,22 +215,7 @@ const UserDashboard = () => {
                     />
                   </div>
 
-                  
-
-                  <select 
-                    name="status"
-                    value={activity.status}
-                    onChange={handleChange}
-                    className="select select-bordered w-full bg-transparent border border-black text-black"
-                    required
-                  >
-                    <option disabled>Status</option>
-                    <option value="Todo">To Do</option>
-                    <option value="Ongoing">On Progress</option>
-                    <option value="Done">Done</option>
-                  </select>
-
-
+              
                   <div className="modal-action">
                     <button className='btn bg-black text-white mr-2' type="submit" onClick={handleSubmit}>
                       {editing ? 'Update' : 'Submit'}
@@ -270,21 +289,13 @@ const UserDashboard = () => {
                   <tr key={activity._id}>
                     <td className="px-4 py-5"><input type="checkbox" className="size-5 rounded border-gray-300" /></td>
                     <td className="whitespace-nowrap px-4 py-2  font-medium text-white"><Link to={`/activities/${activity._id}`}>{activity.name}</Link></td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
-                      <div className="relative pt-1">
-                        <div className="flex mb-2 items-center justify-between">
-                          <div className="flex-grow bg-gray-200 h-1.5">
-                            <div className={`h-1.5 ${activity.status === 'Todo' ? 'w-1/3 bg-red-500' : activity.status === 'Ongoing' ? 'w-2/3 bg-yellow-500' : 'w-full bg-green-500'}`}></div>
-                          </div>
-                        </div>
-                      </div>
+                    <td className="whitespace-nowrap px-4 py-2 text-gray-400">
+                        <ProgressBar now={activityProgress[activity._id]?.value || 0} label={`${activityProgress[activity._id]?.value || 0}%`} variant={activityProgress[activity._id]?.variant} />
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateStart).toLocaleDateString() : "Loading..."}</td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateEnd).toLocaleDateString() : "Loading..."}</td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
                       <div className="flex items-center space-x-2">
-                        <GoDotFill className={activity.status === 'Todo' ? 'text-red-500' : activity.status === 'Ongoing' ? 'text-yellow-500' : 'text-green-500'} />
-                        <span>{activity.status}</span>
                       </div>
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">

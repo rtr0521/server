@@ -8,6 +8,27 @@ const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const secretKey = 'your-secret-key'; // Make sure to keep this secret key secure
 
+exports.updateTaskStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+/*     console.log(`Received request to update task ${id} to status ${status}`); */
+
+    const updatedTask = await Task.findByIdAndUpdate(id, { status }, { new: true });
+
+    if (!updatedTask) {
+      console.log(`Task ${id} not found`);
+      return res.status(404).json({ message: 'Task not found' });
+    }
+/* 
+    console.log(`Task ${id} updated successfully to status ${status}`); */
+    res.status(200).json(updatedTask);
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 exports.getActivityById = async (req, res) => {
   try {
@@ -20,7 +41,6 @@ exports.getActivityById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // Get all tasks for a specific activity
 exports.getAllTasksForActivity = async (req, res) => {
@@ -66,30 +86,6 @@ exports.updateTask = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-
-exports.updateTaskStatus = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-
-/*     console.log(`Received request to update task ${id} to status ${status}`); */
-
-    const updatedTask = await Task.findByIdAndUpdate(id, { status }, { new: true });
-
-    if (!updatedTask) {
-      console.log(`Task ${id} not found`);
-      return res.status(404).json({ message: 'Task not found' });
-    }
-/* 
-    console.log(`Task ${id} updated successfully to status ${status}`); */
-    res.status(200).json(updatedTask);
-  } catch (error) {
-    console.error('Error updating task:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
-
 
 // Delete Task
 exports.deleteTask = async (req, res) => {

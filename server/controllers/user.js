@@ -21,6 +21,7 @@ exports.getActivityById = async (req, res) => {
   }
 };
 
+
 // Get all tasks for a specific activity
 exports.getAllTasksForActivity = async (req, res) => {
   try {
@@ -72,7 +73,7 @@ exports.updateTaskStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    console.log(`Received request to update task ${id} to status ${status}`);
+/*     console.log(`Received request to update task ${id} to status ${status}`); */
 
     const updatedTask = await Task.findByIdAndUpdate(id, { status }, { new: true });
 
@@ -80,8 +81,8 @@ exports.updateTaskStatus = async (req, res) => {
       console.log(`Task ${id} not found`);
       return res.status(404).json({ message: 'Task not found' });
     }
-
-    console.log(`Task ${id} updated successfully to status ${status}`);
+/* 
+    console.log(`Task ${id} updated successfully to status ${status}`); */
     res.status(200).json(updatedTask);
   } catch (error) {
     console.error('Error updating task:', error);

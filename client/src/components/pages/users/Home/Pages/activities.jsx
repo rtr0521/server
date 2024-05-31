@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Sidebar } from './Sidebar/sidebar';
-import { FaRegCalendarCheck, FaCheckCircle, FaTrash, FaEdit } from "react-icons/fa";
+import { FaRegCalendarCheck, FaCheckCircle, FaTrash, FaEdit, FaTasks } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
 
 const Activities = () => {
@@ -43,6 +43,18 @@ const Activities = () => {
     fetchActivity();
   }, [id]);
   
+
+    // Inside the Activities component
+  const getProgressSummary = () => {
+    const totalTasks = todos.length + inProgress.length + done.length;
+    if (totalTasks === 0) return "No tasks";
+
+    const donePercent = Math.round((done.length / totalTasks) * 100);
+    if (donePercent === 100) return "Done";
+    if (inProgress.length > 0) return "In Progress";
+    return "To Do";
+  };
+
 
   const addTask = async () => {
     const newTaskDescription = document.getElementById('task-description').value;
@@ -144,6 +156,13 @@ const Activities = () => {
         <header>
           <h1 className='text-4xl font-bold mb-3 text-white '>🤖 {activity ? activity.name : "Loading..."}</h1>
           <div className="flex items-center justify-start">
+
+            <FaTasks className='text-lg' /> 
+            <p className='text-gray-400 ml-2'>Progress:</p>
+            <span className='bg-gray-500 text-white border p-2 ml-2 rounded-lg'>
+                {getProgressSummary()}
+            </span>
+
             <FaRegCalendarCheck className='text-lg' />
             <p className='text-gray-400 ml-2'>Date Started</p>
             <span className='bg-gray-500 text-white border p-2 ml-2 rounded-lg'>

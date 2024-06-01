@@ -273,7 +273,6 @@ const UserDashboard = () => {
                 <tr>
                   <th className="px-4 py-6">
                     <label htmlFor="SelectAll" className="sr-only">Select All</label>
-                    <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
                   </th>
                   <th className="inline-flex items-center justify-start text-white mt-3 whitespace-nowrap px-4 py-2 font-bold"> Activities <FaCaretDown className='ml-2'/></th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Progress</th>

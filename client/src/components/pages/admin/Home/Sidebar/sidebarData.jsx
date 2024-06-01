@@ -3,7 +3,7 @@ import { IoIosAnalytics } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { IoMdExit } from "react-icons/io";
 import { Link } from 'react-router-dom';
-import { RiAdminLine } from "react-icons/ri";
+import { HiOutlineViewGrid } from "react-icons/hi";
 
 // A dropdown function 
 const Dropdown = ({ title, children }) => {
@@ -27,6 +27,11 @@ export const SidebarData = [
       path: '/adminAnalytics'
     },
     {
+      title: 'Manage Activities',
+      icon: <HiOutlineViewGrid />,
+      path: '/adminActivities'
+    },
+    {
       title:(
         <Dropdown title= "Manage User Profile"> 
           <Link to ='/pending'>Pending User</Link>
@@ -35,11 +40,7 @@ export const SidebarData = [
       ),
       icon: <CgProfile/>
     },
-    {
-      title: 'Profile Settings',
-      icon: <RiAdminLine />,
-      path: '/adminProfile'
-    },
+
     {
       title: 'Logout',
       icon: <IoMdExit />,

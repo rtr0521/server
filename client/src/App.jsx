@@ -12,8 +12,7 @@ import AuthAdmin from './components/pages/admin/auth';
 import AdminAnalytics from './components/pages/admin/Home/adminAnalytics';
 import AdminActivities from './components/pages/admin/Home/adminActivities';
 import AdminTask from './components/pages/admin/Home/adminTask';
-import Pending from './components/pages/admin/Home/pending';
-import Accepted from './components/pages/admin/Home/accepted';
+
 import './App.css';
 
 function App() {
@@ -48,8 +47,7 @@ function App() {
           <Route path="/adminAnalytics" element={<AdminAnalytics />} />
           <Route path="/adminActivities" element={<AdminActivities />} />
           <Route path="/adminTask/:id" element={<AdminTask />} />
-          <Route path="/pending" element={<Pending />} />
-          <Route path="/accepted" element={<Accepted />} />
+
         </Routes>
       </div>
     </Router>

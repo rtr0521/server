@@ -41,7 +41,7 @@ function ForgetPassword() {
 
     return (
         <div className="flex items-center justify-center h-screen bg-dark-gray-800">
-            <form onSubmit={handleSubmit} className="w-full max-w-md bg-white text-black rounded-lg shadow-lg p-8">
+            <form onSubmit={handleSubmit} className="w-full max-w-md bg-dark text-white rounded-lg shadow-lg p-8">
                 <h3 className="mb-3 text-4xl font-extrabold text-center">Forgot Password?</h3>
                 <p className="mb-4 text-center">Enter your email to receive password reset link</p>
                 
@@ -51,14 +51,14 @@ function ForgetPassword() {
                         id="email"
                         type="email"
                         placeholder="youremailaddress@gmail.com"
-                        className="w-full px-4 py-3 mt-1 text-sm bg-white border border-black rounded-md placeholder-black"
+                        className="w-full px-4 py-3 mt-1 text-sm bg-white border text-black border-black rounded-md placeholder-black"
                         value={email}
                         onChange={handleEmailChange}
                     />
                     
                 </div>
                 
-                <button type="submit" className="w-full py-3 text-sm font-bold leading-none text-white bg-black rounded-md">Send Reset Link</button>
+                <button type="submit" className="w-full py-3 text-sm font-bold leading-none text-white bg-primary rounded-md">Send Reset Link</button>
 
                 {/* Success alert */}
                 {passwordResetSuccess && (

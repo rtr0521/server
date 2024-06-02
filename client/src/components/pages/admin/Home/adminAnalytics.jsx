@@ -1,13 +1,15 @@
-import React from 'react'
-import { Sidebar } from './Sidebar/sidebar';
-import { LineGraph } from './Charts/line';
-import { BarGraph } from './Charts/bar';
-import { PieGraph } from './Charts/pie';
-import { useState, useEffect } from 'react';
-import { get } from 'mongoose';
+import React from "react";
+import { Sidebar } from "./Sidebar/sidebar";
+import { LineGraph } from "./Charts/line";
+import { BarGraph } from "./Charts/bar";
+import { PieGraph } from "./Charts/pie";
+import { useState, useEffect } from "react";
+import { get } from "mongoose";
+import { AiFillFire } from "react-icons/ai";
+import { FaFlagCheckered } from "react-icons/fa6";
+import { MdOutlineCallMissedOutgoing } from "react-icons/md";
 
 const adminAnalytics = () => {
-
   const [totalActivities, setTotalActivities] = useState(0);
   const [totalProjects, setTotalProjects] = useState(0);
 
@@ -17,84 +19,99 @@ const adminAnalytics = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/activities/total'); // Assuming this is your API endpoint
+        const response = await fetch(
+          "http://localhost:5000/admin/activities/total"
+        ); // Assuming this is your API endpoint
         const data = await response.json();
         setTotalActivities(data.totalActivities);
         setTotalProjects(data.totalProjects); // Update totalProjects state
       } catch (error) {
-        console.error('Error fetching activities:', error);
+        console.error("Error fetching activities:", error);
       }
     };
 
     fetchActivities();
-  }, []); 
-
+  }, []);
 
   useEffect(() => {
     const fetchTaskStats = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/task/TotalTasks');
+        const response = await fetch(
+          "http://localhost:5000/admin/task/TotalTasks"
+        );
         const data = await response.json();
         setOnProgress(data.totalOnProgress);
         setDone(data.totalDone);
       } catch (error) {
-        console.error('Error fetching task stats:', error);
+        console.error("Error fetching task stats:", error);
       }
     };
 
     fetchTaskStats();
   }, []);
 
-
   return (
-    <div className=" flex h-full ">
+    <div className="flex h-full">
       <Sidebar />
-     
-      <div className=' w-full flex items-center justify-center p-7'>
-      <section className="">    
-        <div className="grid grid-col-4 gap-4 place-content-center w-full h-96">
-          <div className="flex items-center justify-between gap-4">
-          <div className="stat shadow-md rounded-md bg-dark ">
-            <div className="stat-figure text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-            </div>
-              <div className="stat-title text-white">Total Projects</div>
-              <div className="stat-value text-primary">{totalActivities}</div> {/* Display totalActivities */}
-              <div className="stat-desc text-secondary">Platoon's Total Projects.</div>
-           </div>
-           <div className="stat shadow-md rounded-md bg-dark">
-            <div className="stat-figure text-secondary">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-              <div className="stat-title text-white">Accomplished</div>
-              <div className="stat-value text-green-500">{done}</div>
-              <div className="stat-desc text-secondary">Platoon's done projects.</div>
-          </div>
-          <div className="stat shadow-md rounded-md bg-dark">
 
-              <div className="stat-title text-white">On-Progress</div>
-              <div className="stat-value text-red-400">{onProgress}</div>
-              <div className="stat-desc text-secondary">Platoon's On-going Projects.</div>
+      <div className="w-full h-full flex items-center justify-center p-7">
+        <section className="w-full">
+          <div className="flex items-center jsutify-center flex-col lg:grid lg:grid-col-4 lg:gap-4 lg:place-content-center lg:w-full lg:h-full">
+            <div className="w-full flex-col mb-4 flex lg:flex-row items-center justify-between gap-4">
+              <div className="stat shadow-md rounded-md bg-dark ">
+                <div className="stat-figure text-primary text-2xl">
+                  <AiFillFire />
+                </div>
+                <div className="stat-title text-white">Total Projects</div>
+                <div className="stat-value text-primary">
+                  {totalActivities}
+                </div>{" "}
+                {/* Display totalActivities */}
+                <div className="stat-desc text-secondary">
+                  Platoon's Total Projects.
+                </div>
+              </div>
+              <div className="stat shadow-md rounded-md bg-dark">
+                <div className="stat-figure text-success text-2xl">
+                  <FaFlagCheckered />
+                </div>
+                <div className="stat-title text-white">Accomplished</div>
+                <div className="stat-value text-success">{done}</div>
+                <div className="stat-desc text-secondary">
+                  Platoon's done projects.
+                </div>
+              </div>
+              <div className="stat shadow-md rounded-md bg-dark">
+                <div className="stat-figure text-red-400 text-2xl">
+                  <MdOutlineCallMissedOutgoing />
+                </div>
+                <div className="stat-title text-white">On-Progress</div>
+                <div className="stat-value text-red-400">{onProgress}</div>
+                <div className="stat-desc text-secondary">
+                  Platoon's On-going Projects.
+                </div>
+              </div>
+            </div>
+            <div className="w-full mb-4 row-span-2 shadow-md rounded-md lg:w-96 h-full p-3 flex flex-col items-center bg-dark">
+              <h1 className="text-white text-xl font-bold mb-3">
+                Progress Activities
+              </h1>
+              <PieGraph />
+            </div>
+            <div className=" mb-4 col-row-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
+              <h1 className="text-white text-xl font-bold">
+                Progress Activities
+              </h1>
+              <BarGraph />
+            </div>
+            <div className="col-span-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
+              <h1 className="text-white text-xl font-bold">Every Year</h1>
+              <LineGraph />
             </div>
           </div>
-          <div className="row-span-2 shadow-md rounded-md w-96 h-full p-3 flex flex-col items-center bg-dark">
-          <h1 className='text-white text-xl font-bold mb-3'>Progress Activities</h1>
-           <PieGraph/>
-          </div>
-          <div className="col-row-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
-          <h1 className='text-white text-xl font-bold'>Progress Activities</h1>
-            <BarGraph/>
-          </div>
-          <div className="col-span-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
-          <h1 className='text-white text-xl font-bold'>Every Year</h1>
-            <LineGraph/>
-          </div>
-        </div>
         </section>
       </div>
-  
     </div>
-   
   );
 };
 

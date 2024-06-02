@@ -91,11 +91,11 @@ function RegistrationForm() {
     }
   };
   return (
-    <div className="flex items-center justify-between w-full h-screen bg-dark-gray-800 text-white">
-      <img className="w-92 h-auto ml-80" src={illustration} alt="" />
+    <div className="flex-col flex items-center justify-center w-full h-screen lg:flex lg:items-center lg:justify-between lg:w-full lg:flex-row lg:h-screen text-white">
+      <img className="hidden lg:flex lg:w-96 lg:m-auto  lg:h-auto" src={illustration} alt="" />
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl shadow-lg border-white p-8 h-screen"
+        className="w-full lg:border-l lg:border-white p-8 h-full lg:max-w-2xl"
       >
         <h3 className="mb-3 text-2xl font-extrabold text-center">Register</h3>
         <p className="mb-4 text-sm text-center">Create your account</p>

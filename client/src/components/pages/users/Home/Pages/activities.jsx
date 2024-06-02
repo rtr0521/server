@@ -201,23 +201,23 @@ const Activities = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       <Sidebar />
-      <div className="h-screen flex-grow p-7">
-        <header>
+      <div className="w-full h-full lg:h-screen flex-grow p-7">
+        <header className="w-full">
           <h1 className="text-4xl font-bold mb-3 text-white ">
             🤖 {activity ? activity.name : "Loading..."}
           </h1>
           <div className="flex items-center justify-start mb-3">
-            <FaTasks className="text-lg" />
-            <p className="text-gray-400 ml-2">Progress:</p>
-            <div className="w-40 h-4 bg-gray-200 rounded-full ml-2">
+            <FaTasks className="text-lg hidden lg:flex" />
+            <p className="hidden lg:flex text-gray-400 ml-2">Progress:</p>
+            <div className="hidden lg:flex w-40 h-4 bg-gray-200 rounded-full ml-2">
               <div
                 className="h-full bg-blue-500 rounded-full"
                 style={{ width: `${getProgressSummary()}%` }}
               ></div>
             </div>
-            <span className="mx-2">
+            <span className="mx-2 hidden lg:flex">
               <GoDotFill
                 className={`${
                   getProgressSummary() === 100
@@ -243,7 +243,7 @@ const Activities = () => {
             </span>
           </div>
 
-          <p className="flex items-end text-justify text-gray-400 max-w-screen-2xl border-white border rounded-md p-3">
+          <p className="flex items-end text-justify text-gray-400 w-full border-white border rounded-md p-3">
             {activity && activity.description
               ? activity.description
               : "Loading..."}
@@ -262,7 +262,7 @@ const Activities = () => {
           </p>
 
           <button
-            className="btn w-60 my-3 btn-primary text-white"
+            className="btn w-full my-3 lg:w-60 btn-primary text-white"
             onClick={() => document.getElementById("task_modal").showModal()}
           >
             {" "}
@@ -275,7 +275,7 @@ const Activities = () => {
             <div className="modal-box bg-white border border-white">
               <h3 className="font-bold text-xl">Add a To Do List ✍️:</h3>
               <hr className="my-4" />
-              <p className="text-sm my-2">Description:</p>
+              <p className="text-sm my-2 ">Description:</p>
               <textarea
                 id="task-description"
                 className="bg-white border rounded-md h-96 border-black w-full p-3 text-gray-400 "
@@ -298,8 +298,8 @@ const Activities = () => {
           </dialog>
         </header>
 
-        <section className="max-w-7xl mt-1">
-          <div className="w-full flex items-start justify-between">
+        <section className="w-full mt-1 lg:w-full ">
+          <div className="flex-col w-full flex items-star justify-between lg:flex-row lg:flex-start">
             <div className="flex flex-col w-full mr-5">
               {todos.map((task) => (
                 <div

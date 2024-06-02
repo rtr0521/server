@@ -62,12 +62,12 @@ function Login() {
   };
 
   return (
-    <div className="login-container w-full h-auto flex align-center justify-center ">
-      <div className="flex items-center justify-between w-full h-screen bg-dark-gray-800">
-        <img className="m-auto " src={illustration} alt="" />
+    <div className="w-full h-screen flex align-center justify-center ">
+      <div className="flex-col flex items-center justify-center w-96 lg:flex lg:items-center lg:justify-between lg:w-full lg:flex-row lg:h-screen lg:bg-dark-gray-800">
+        <img className="w-60 lg:m-auto lg:w-96 lg:h-auto " src={illustration} alt="" />
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-2xl border-l p-8 h-screen text-white"
+          className="w-full max-w-2xl lg:border-l p-8 h-screen text-white"
         >
           <h3 className="mb-3 text-4xl font-extrabold text-center">Sign In</h3>
           <p className="mb-4  text-center">

@@ -182,19 +182,19 @@ const UserDashboard = () => {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <div className="w-full ">
-        <header className="flex items-center justify-between w-full h-32 p-7">
-          <div className="header-container">
-            <div className="header-info flex items-center justify-center">
-              <h1 className="text-2xl font-bold text-white">
+      <div className="w-full h-full ">
+        <header className="flex items-center justify-between w-full h-20 lg:h-32 p-7">
+          <div className="">
+            <div className="flex items-center justify-center">
+              <h1 className="text-2xl mr-2 font-bold text-white">
                 Military Performance Monitoring
               </h1>
-              <span className="bg-transparent border-1 border-white rounded-2xl p-2 text-white">
+              <span className="hidden lg:flex bg-transparent border-1 border-white rounded-2xl p-2 text-white">
                 70 Platoon
               </span>
             </div>
             <div className="header-sub">
-              <p className=" text-md text-gray-500">
+              <p className=" text-md text-gray-300">
                 Keep track of vendor and their security ratings.
               </p>
             </div>
@@ -202,10 +202,10 @@ const UserDashboard = () => {
           <div className="button">
             <dialog
               id="my_modal_5"
-              className="modal modal-bottom sm:modal-middle"
+              className="modal sm:modal-middle"
             >
-              <div className="modal-box  border-black border-1">
-                <h3 className="font-bold text-lg bg-transparent border-b border-white text-black x">
+              <div className="modal-box  border-white text-white border">
+                <h3 className="font-bold text-lg bg-transparent border-b border-">
                   Add a To Do! ✏️
                 </h3>
                 <form onSubmit={handleSubmit}>
@@ -216,7 +216,7 @@ const UserDashboard = () => {
                     value={activity.name}
                     onChange={handleChange}
                     placeholder="Enter Activity"
-                    className="input input-bordered w-full bg-transparent border border-black text-black"
+                    className="input input-bordered w-full bg-transparent border border-white text-white"
                     required
                   />
                   <div>
@@ -244,7 +244,7 @@ const UserDashboard = () => {
                       name="dateStart"
                       value={activity.dateStart}
                       onChange={handleChange}
-                      className="bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full"
+                      className="bg-white border border-black text-black rounded-lg px-4 py-2 mb-3 w-full"
                       required
                     />
                     <input
@@ -252,14 +252,14 @@ const UserDashboard = () => {
                       name="dateEnd"
                       value={activity.dateEnd}
                       onChange={handleChange}
-                      className="bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full"
+                      className="bg-white border border-black text-black rounded-lg px-4 py-2 mb-3 w-full"
                       required
                     />
                   </div>
 
                   <div className="modal-action">
                     <button
-                      className="btn bg-black text-white mr-2"
+                      className="btn btn-primary text-white mr-2"
                       type="submit"
                       onClick={handleSubmit}
                     >
@@ -282,9 +282,9 @@ const UserDashboard = () => {
             </dialog>
           </div>
         </header>
-        <section className="w-full h-5/6  p-7">
+        <section className="w-full p-7">
           <div className="flex justify-between items-center">
-            <div className="">
+            <div className="hidden lg:flex">
               <button className="btn btn-primary mr-2 w-32">View All</button>
               <button className="btn btn-outline mr-2 w-32">In Progress</button>
               <button className="btn btn-outline mr-2 w-32">Done</button>
@@ -303,8 +303,8 @@ const UserDashboard = () => {
               </button>
             </div>
           </div>
-          <div className="overflow-x-auto mt-12 shadow-md rounded-lg">
-            <table className="min-w-full divide-y-2 divide-gray-200 bg-dark text-sm">
+          <div className="w-full overflow-x-auto mt-12 shadow-md rounded-lg">
+            <table className="w-full divide-y-2 divide-gray-200 bg-dark text-sm">
               <thead className="ltr:text-left rtl:text-right">
                 <tr>
                   <th className="px-4 py-6">
@@ -390,13 +390,13 @@ const UserDashboard = () => {
           </div>
           <div className="flex items-center justify-between mt-10">
             <div>
-              <h1 className="text-md font-medium text-gray-500">
+              <h1 className="text-md font-medium text-gray-300">
                 Page {currentPage} of {totalPages}
               </h1>
             </div>
             <div className="flex items-center space-x-2">
               <button
-                className="inline-flex items-center gap-2 ml-2 rounded  bg-secondary px-8 py-3 text-white "
+                className="inline-flex items-center gap-2 ml-2 rounded  bg-dark px-8 py-3 text-white "
                 disabled={currentPage === 1}
                 onClick={goToPreviousPage}
               >
@@ -405,7 +405,7 @@ const UserDashboard = () => {
               </button>
 
               <button
-                className="inline-flex items-center gap-2 rounded   bg-secondary px-8 py-3 text-white"
+                className="inline-flex items-center gap-2 rounded   bg-dark px-8 py-3 text-white"
                 disabled={currentPage === totalPages}
                 onClick={goToNextPage}
               >

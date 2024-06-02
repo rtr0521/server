@@ -3,7 +3,8 @@ import axios from "axios";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
 import { IoMdExit } from "react-icons/io";
-import { FaBars } from "react-icons/fa";
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+
 
 const SidebarData = [
   {
@@ -47,12 +48,12 @@ export const Sidebar = () => {
 
   return (
     <nav className={`h-full shadow-2xl text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'}`}>
-      <button onClick={toggleSidebar} className="text-md flex items-center justify-end mt-5 lg:mr-3">
-        <FaBars />
+      <button onClick={toggleSidebar} className="hidden lg:text-xl lg:flex lg:items-center lg:justify-end lg:mt-5 ">
+      <TbLayoutSidebarLeftCollapseFilled />
       </button>
       <div className="p-3 flex items-center justify-between flex-col">
         {!isCollapsed && (
-          <div className="profile-info flex items-center justify-center flex-col">
+          <div className="hidden lg:profile-info lg:flex lg:items-center lg:justify-center lg:flex-col">
             <img src={profileInfo.profilePicture} className="w-16 h-auto rounded-full" alt="Profile" />
             <span className='text-xl font-bold text-gray-400'>{profileInfo.fullname}</span>
           </div>
@@ -61,8 +62,8 @@ export const Sidebar = () => {
       <ul className="flex-grow">
         {SidebarData.map((item, index) => (
           <a key={index} href={item.path} className="flex items-center p-4 hover:bg-black hover:text-white">
-            <span className="mr-4">{item.icon}</span>
-            {!isCollapsed && <span>{item.title}</span>}
+            <span className="text-xl lg:mr-4 lg:text-md">{item.icon}</span>
+            {!isCollapsed && <span className="hidden lg:flex">{item.title}</span>}
           </a>
         ))}
       </ul>

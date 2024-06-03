@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // src/components/Profile.jsx
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar/sidebar';
@@ -8,16 +8,8 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import DefaultProfileImage from '../../../../../assets/images/profile.png'; // Ensure this path is correct
 import axios from 'axios'; // Import axios for making HTTP requests
-=======
-import React, { useState } from "react";
-import { Sidebar } from "./Sidebar/sidebar";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import { FaUserAstronaut } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { FaKey } from "react-icons/fa";
-import DefaultProfileImage from "../../../../../assets/images/profile.png"; // Ensure this path is correct
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+
+
 
 const Profile = ({ userId }) => {
     const [profile, setProfile] = useState({
@@ -49,7 +41,7 @@ const Profile = ({ userId }) => {
         getUser();
     }, [userId]);
 
-<<<<<<< HEAD
+
     const handleProfilePictureChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -142,8 +134,8 @@ const Profile = ({ userId }) => {
                     </div>
                 </form>
             </div>
-=======
-  return (
+
+
     <div className="flex h-screen">
       <Sidebar profilePicture={profilePicture} />
       <div className="flex-grow p-7">
@@ -210,8 +202,12 @@ const Profile = ({ userId }) => {
               />
             </label>
           </div>
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+
         </div>
+        </div>
+        </div>
+        </div>
+        
     );
 };
 

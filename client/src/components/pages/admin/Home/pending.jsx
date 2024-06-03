@@ -1,12 +1,12 @@
 import React from 'react'
 import { Sidebar } from './Sidebar/sidebar'
 import { TableAdmin } from './Table/tableAdmin'
-export const pending = () => {
+export const pending = () =>  {
   return (
     <div>
         <div className="flex h-screen">
             <Sidebar />
-            <div className=' flex-grow p-7'>
+            <div className='flex-grow p-7'>
                 <header>
                     <div className="flex items-center justify-between">
                         <div className="">

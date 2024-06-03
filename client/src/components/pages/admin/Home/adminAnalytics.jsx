@@ -1,12 +1,8 @@
-import React from "react";
+
 import { Sidebar } from "./Sidebar/sidebar";
 import { LineGraph } from "./Charts/line";
 import { BarGraph } from "./Charts/bar";
-<<<<<<< HEAD
-import PieGraph from "./Charts/pie";
-=======
-import { PieGraph } from "./Charts/pie";
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+import { PieGraph } from "./Charts/pie"
 import { useState, useEffect } from "react";
 import { get } from "mongoose";
 import { AiFillFire } from "react-icons/ai";
@@ -98,21 +94,21 @@ const adminAnalytics = () => {
             </div>
             <div className="w-full mb-4 row-span-2 shadow-md rounded-md lg:w-96 h-full p-3 flex flex-col items-center bg-dark">
               <h1 className="text-white text-xl font-bold mb-3">
-<<<<<<< HEAD
+
                 Progress Task
-=======
+
                 Progress Activities
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+
               </h1>
               <PieGraph />
             </div>
             <div className=" mb-4 col-row-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
               <h1 className="text-white text-xl font-bold">
-<<<<<<< HEAD
+
                 Top 10 Progress Activities
-=======
+
                 Progress Activities
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+
               </h1>
               <BarGraph />
             </div>

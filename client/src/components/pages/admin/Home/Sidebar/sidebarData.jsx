@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosAnalytics } from "react-icons/io";
-// import { CgProfile } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 import { IoMdExit } from "react-icons/io";
 // import { Link } from 'react-router-dom';
 import { HiOutlineViewGrid } from "react-icons/hi";
@@ -31,13 +31,13 @@ export const SidebarData = [
       icon: <HiOutlineViewGrid />,
       path: '/adminActivities'
     },
-<<<<<<< HEAD
+
     {
       title: 'Manage User Profile',
       icon: <CgProfile />,
       path: '/pending'
     },
-=======
+
     // {
     //   title:(
     //     <Dropdown title= "Manage User Profile"> 
@@ -48,7 +48,7 @@ export const SidebarData = [
     //   icon: <CgProfile/>
     // },
 
->>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
+
     {
       title: 'Logout',
       icon: <IoMdExit />,

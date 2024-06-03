@@ -5,7 +5,7 @@ import { usePieChartData } from './chartData';
 
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-const PieGraph = () => {
+export const PieGraph = () => {
     const pieChartData = usePieChartData();
 
     const options = {};

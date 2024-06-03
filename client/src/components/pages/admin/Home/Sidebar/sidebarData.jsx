@@ -1,24 +1,24 @@
 import React from "react";
 import { IoIosAnalytics } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
+// import { CgProfile } from "react-icons/cg";
 import { IoMdExit } from "react-icons/io";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { HiOutlineViewGrid } from "react-icons/hi";
 
 // A dropdown function 
-const Dropdown = ({ title, children }) => {
-  return (
-    <div className="dropdown dropdown-hover bg-transparent ">
-      <div tabIndex={0} role="button" className="bg-transparen hover:text-white">{title}</div>
-      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-black text-white rounded-md w-40 ">
-        <li className="">
-          {children}
-        </li>
+// const Dropdown = ({ title, children }) => {
+//   return (
+//     <div className="dropdown dropdown-hover bg-transparent ">
+//       <div tabIndex={0} role="button" className="bg-transparen hover:text-white">{title}</div>
+//       <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-black text-white rounded-md w-40 ">
+//         <li className="">
+//           {children}
+//         </li>
       
-      </ul>
-    </div>
-  );
-};
+//       </ul>
+//     </div>
+//   );
+// };
 
 export const SidebarData = [
     {
@@ -31,11 +31,24 @@ export const SidebarData = [
       icon: <HiOutlineViewGrid />,
       path: '/adminActivities'
     },
+<<<<<<< HEAD
     {
       title: 'Manage User Profile',
       icon: <CgProfile />,
       path: '/pending'
     },
+=======
+    // {
+    //   title:(
+    //     <Dropdown title= "Manage User Profile"> 
+    //       <Link to ='/pending'>Pending User</Link>
+    //       <Link to ='/accepted'>Accepted User</Link>
+    //   </Dropdown>
+    //   ),
+    //   icon: <CgProfile/>
+    // },
+
+>>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
     {
       title: 'Logout',
       icon: <IoMdExit />,

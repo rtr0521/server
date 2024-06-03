@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
 import { SidebarData } from "./sidebarData";
+<<<<<<< HEAD
 
+=======
+import Profile from "../../../../../assets/images/profile.png";
+>>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
 
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -24,7 +28,20 @@ export const Sidebar = () => {
           <TbLayoutSidebarLeftCollapseFilled />
         </button>
         <div className="p-3 flex items-center justify-between flex-col">
+<<<<<<< HEAD
               <span className="text-md font-bold text-gray-400">Admin</span>
+=======
+          {!isCollapsed && (
+            <div className="profile-info flex items-center justify-center flex-col sm:hidden lg:flex">
+              <img
+                src={Profile}
+                className="w-16 h-auto rounded-full"
+                alt="Profile"
+              />
+              <span className="text-md font-bold text-gray-400">Admin</span>
+            </div>
+          )}
+>>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
         </div>
         <ul className="flex-grow">
           {SidebarData.map((item, index) => (

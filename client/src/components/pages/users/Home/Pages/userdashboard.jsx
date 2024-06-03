@@ -337,7 +337,14 @@ const UserDashboard = () => {
                 {activities.map((activity) => (
                   <tr key={activity._id}>
                     <td className="px-4 py-5">
+<<<<<<< HEAD
 
+=======
+                      <input
+                        type="checkbox"
+                        className="size-5 rounded border-gray-300"
+                      />
+>>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
                     </td>
                     <td className="whitespace-nowrap px-4 py-2  font-medium text-white">
                       <Link to={`/activities/${activity._id}`}>

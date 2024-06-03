@@ -1,5 +1,9 @@
 body{
+<<<<<<< HEAD
   background-image: url(../src/assets/images/bg.png);
+=======
+    background-image: url(../src/assets/images/bg.png);
+>>>>>>> 509d00fcc4c0fb5d656906cf95071b775fc4b97b
 
 }
 @font-face {

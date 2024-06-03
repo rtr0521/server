@@ -162,6 +162,24 @@ exports.deleteActivity = async (req, res) => {
   }
 };
 
+/* exports.UpdateProfileUsers =  async (req, res) => {
+  try {
+      const { fullname, email, password, profilePicture } = req.body;
+      const user = await User.findByIdAndUpdate(
+          req.params.id,
+          { fullname, email, password, profilePicture },
+          { new: true }
+      );
+      if (!user) {
+          return res.status(404).send({ message: 'User not found' });
+      }
+      res.status(200).send(user);
+  } catch (error) {
+      res.status(500).send({ message: 'Server error' });
+  }
+};
+ */
+
 // Function to handle login
 exports.login = async (req, res) => {
     try {

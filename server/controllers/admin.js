@@ -1,6 +1,7 @@
 const AuthAdmin = require('../model/admin/adminAuth'); // Import your AuthAdmin model
 const UserActivities = require('../model/users/userActivity'); // Import your userActivity model
 const Task = require('../model/users/Task'); // Import the Task model
+const User = require('../model/users/userModel')
 
 // Function to handle login
 exports.login = async (req, res) => {
@@ -26,7 +27,6 @@ exports.login = async (req, res) => {
 };
 
 // Data Analytics
-
 exports.getTotalActivities = async (req, res) => {
   try {
     const totalActivities = await UserActivities.countDocuments();
@@ -38,7 +38,7 @@ exports.getTotalActivities = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
+// Total Task Progress and Done
 exports.getTotalTask = async (req, res) => {
     try {
       const totalOnProgress = await Task.countDocuments({ status: 'inProgress' });
@@ -51,8 +51,69 @@ exports.getTotalTask = async (req, res) => {
     }
   };
 
+ // Pie Chart
+ exports.getAdminPieChart = async (req, res) => {
+  try {
+    const todoCount = await Task.countDocuments({ status: 'todo' });
+    const inProgressCount = await Task.countDocuments({ status: 'inProgress' });
+    const doneCount = await Task.countDocuments({ status: 'done' });
+
+    res.json({
+      todo: todoCount,
+      inProgress: inProgressCount,
+      done: doneCount
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch task statistics' });
+  }
+};
 
 
+// Top Activities
+exports.getDuplicateActivities = async (req, res) => {
+  try {
+    const duplicateActivities = await UserActivities.aggregate([
+      {
+        $group: {
+          _id: "$name",
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $match: {
+          count: { $gt: 1 } // Filter for activities with more than one occurrence
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 10 // Limit to top 5
+      },
+      {
+        $project: {
+          name: "$_id",
+          count: 1,
+          _id: 0
+        }
+      }
+    ]);
+
+    res.json(duplicateActivities);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Line Graph
+exports.getAdminLineGraphTask =async (req, res) => {
+  try {
+    const tasks = await Task.find().populate('activity');
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
   
 // User Activities
 exports.getAllAdminActivities = async (req, res) => {
@@ -239,3 +300,26 @@ exports.getAdminUpdateTaskStatus = async (req, res) => {
     }
   };
   
+// User Details
+exports.getAdminUsers = async (req, res) => {
+  try {
+      const users = await User.find();
+      res.json(users);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+};
+
+// Delete Users
+exports.DeleteAdminUsers =  async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+        return res.status(404).send({ message: 'User not found' });
+    }
+    res.status(200).send({ message: 'User deleted successfully' });
+  } catch (error) {
+      res.status(500).send({ message: 'Server error' });
+  }
+};
+

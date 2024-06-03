@@ -43,6 +43,8 @@ function App() {
           <Route path="/userdashboard" element={<Userdashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/activities/:id" element={<Activities />} />
+
+          
           {/* Admin */}
           <Route path="/admin/auth" element={<AuthAdmin />} />
           <Route path="/adminAnalytics" element={<AdminAnalytics />} />

@@ -32,15 +32,10 @@ export const SidebarData = [
       path: '/adminActivities'
     },
     {
-      title:(
-        <Dropdown title= "Manage User Profile"> 
-          <Link to ='/pending'>Pending User</Link>
-          <Link to ='/accepted'>Accepted User</Link>
-      </Dropdown>
-      ),
-      icon: <CgProfile/>
+      title: 'Manage User Profile',
+      icon: <CgProfile />,
+      path: '/pending'
     },
-
     {
       title: 'Logout',
       icon: <IoMdExit />,

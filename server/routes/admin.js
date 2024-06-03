@@ -14,11 +14,15 @@ router.put('/adminActivities/:id', adminController.deleteAdminActivity);
 router.delete('/adminActivities/:id', adminController.deleteAdminActivity);
 router.delete('/adminActivities', adminController.bulkDeleteAdminActivities);
 
-router.get('/adminActivities/:id', adminController.getAdminActivityById);
-// Data Analytics
 
+// Data Analytics
+router.get('/adminActivities/:id', adminController.getAdminActivityById);
 router.get('/activities/total', adminController.getTotalActivities); // Define a route for /api/activities/total
 router.get('/task/TotalTasks', adminController.getTotalTask);
+router.get('/task/PieSummary', adminController.getAdminPieChart);
+router.get('/Task/LineGraph', adminController.getAdminLineGraphTask);
+router.get('/activities/duplicates', adminController.getDuplicateActivities);
+
 
 /* Get ID to All Data */
 router.put('/adminActivities/:id/description', adminController.updateAdminActivitiesTask)
@@ -28,5 +32,9 @@ router.post('/adminActivities/:id/tasks', adminController.getAdminAddTask);
 router.put('/adminActivities/:id', adminController.getAdminUpdateTask);
 router.delete('/adminActivities/:id', adminController.getAdminDeleteTask);
 router.put('/adminActivities/status/:id', adminController.getAdminUpdateTaskStatus);
+
+/* Details Users */
+router.get('/adminUser/list', adminController.getAdminUsers);
+router.delete('/adminUser/list/:id', adminController.DeleteAdminUsers);
 
 module.exports = router;

@@ -8,6 +8,7 @@ router.post('/login', userController.login);
 router.post('/forget-password', userController.forgetPassword);
 router.post('/reset-password/:token', userController.resetPassword);
 router.post('/signup', upload.single('profilePicture'), userController.signup); // Use Multer middleware here
+// router.put('/profileSetting/:id', userController.UpdateProfileUsers);
 /* 
 router.get('/profile/:id', userController.getUserProfile); */
 

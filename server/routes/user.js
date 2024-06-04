@@ -5,6 +5,7 @@ const upload = require('../middleware/upload'); // Import the Multer middleware
 
 // Define routes and link them to controller functions
 router.post('/login', userController.login);
+router.post('/logout', userController.logout);
 router.post('/forget-password', userController.forgetPassword);
 router.post('/reset-password/:token', userController.resetPassword);
 router.post('/signup', upload.single('profilePicture'), userController.signup); // Use Multer middleware here

@@ -24,18 +24,18 @@ export const SidebarData = [
     {
       title: 'View Analytics',
       icon: <IoIosAnalytics />,
-      path: '/adminAnalytics'
+      path: '/admin/Analytics'
     },
     {
       title: 'Manage Activities',
       icon: <HiOutlineViewGrid />,
-      path: '/adminActivities'
+      path: '/admin/Activities'
     },
 
     {
       title: 'Manage User Profile',
       icon: <CgProfile />,
-      path: '/pending'
+      path: '/admin/users'
     },
 
     // {

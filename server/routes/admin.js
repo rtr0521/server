@@ -10,10 +10,9 @@ router.post('/auth', adminController.login);
 // Export the router Manage Activities
 router.get('/adminActivities', adminController.getAllAdminActivities);
 router.post('/adminActivities', adminController.createAdminActivity);
-router.put('/adminActivities/:id', adminController.deleteAdminActivity);
+router.put('/adminActivities/:id', adminController.updateAdminActivity);
 router.delete('/adminActivities/:id', adminController.deleteAdminActivity);
 router.delete('/adminActivities', adminController.bulkDeleteAdminActivities);
-
 
 // Data Analytics
 router.get('/adminActivities/:id', adminController.getAdminActivityById);
@@ -36,5 +35,6 @@ router.put('/adminActivities/status/:id', adminController.getAdminUpdateTaskStat
 /* Details Users */
 router.get('/adminUser/list', adminController.getAdminUsers);
 router.delete('/adminUser/list/:id', adminController.DeleteAdminUsers);
+router.delete('/adminListUser/list', adminController.deleteAdminUsersList);
 
 module.exports = router;

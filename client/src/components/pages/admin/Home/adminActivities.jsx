@@ -30,9 +30,6 @@ const UserDashboard = () => {
   const [error, setError] = useState(null);
   const [selectedActivities, setSelectedActivities] = useState([]);
 
-
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setActivity((prevActivity) => ({
@@ -41,20 +38,20 @@ const UserDashboard = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
       if (editing) {
         const response = await axios.put(`http://localhost:5000/admin/adminActivities/${currentActivityId}`, activity);
-        setActivities((prevActivities) => 
-          prevActivities.map((act) => (act._id === currentActivityId ? response.data : act))
+        setActivities(prevActivities =>
+          prevActivities.map(act => (act._id === currentActivityId ? response.data : act)),
         );
         setEditing(false);
         setCurrentActivityId(null);
         document.getElementById('my_modal_5').close();
       } else {
         const response = await axios.post('http://localhost:5000/admin/adminActivities', activity);
-        setActivities((prevActivities) => [...prevActivities, response.data]);
+        setActivities(prevActivities => [...prevActivities, response.data]);
       }
       clearForm();
       document.getElementById('my_modal_5').close();
@@ -97,7 +94,7 @@ const UserDashboard = () => {
           params: {
             search: searchQuery,
             page: currentPage,
-            limit: 10,
+            limit: 3,
           },
         });
   
@@ -180,7 +177,6 @@ const UserDashboard = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-  
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -247,7 +243,7 @@ const UserDashboard = () => {
 
               
                   <div className="modal-action">
-                    <button className='btn bg-black text-white mr-2' type="submit" onClick={handleSubmit}>
+                    <button className="btn btn-primary text-white mr-2" type="submit" onClick={handleSubmit}>
                       {editing ? 'Update' : 'Submit'}
                     </button>
                     <button type="button" className="btn bg-white text-black" onClick={() => {
@@ -316,7 +312,6 @@ const UserDashboard = () => {
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Progress</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Start Date</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">End Date</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Status</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Edit</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Delete</th>
                 </tr>
@@ -324,7 +319,7 @@ const UserDashboard = () => {
               <tbody className="divide-y divide-gray-200">
                 {activities.map((activity) => (
                   <tr key={activity._id}>
-                                     <td className="px-4 py-5">
+                    <td className="px-4 py-5">
                       <input 
                         type="checkbox" 
                         className="size-5 rounded border-gray-300"
@@ -332,16 +327,16 @@ const UserDashboard = () => {
                         onChange={(e) => handleCheckboxChange(e, activity._id)}
                       />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2  font-medium text-white"><Link to={`/adminTask/${activity._id}`}>{activity.name}</Link></td>
+                    <td className="whitespace-nowrap px-4 py-2  font-medium text-white">
+                      <Link to={`/admin/Task/${activity._id}`}>{activity.name}</Link>
+                    </td>
+
                     <td className="whitespace-nowrap px-4 py-2 text-gray-400">
                         <ProgressBar now={activityProgress[activity._id]?.value || 0} label={`${activityProgress[activity._id]?.value || 0}%`} variant={activityProgress[activity._id]?.variant} />
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateStart).toLocaleDateString() : "Loading..."}</td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateEnd).toLocaleDateString() : "Loading..."}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
-                      <div className="flex items-center space-x-2">
-                      </div>
-                    </td>
+
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                       <button className='text-blue-500' onClick={() => {
                         handleEdit(activity);
@@ -363,22 +358,23 @@ const UserDashboard = () => {
 				<h1 className='text-md font-medium text-gray-500'>Page {currentPage} of {totalPages}</h1>
             </div>
             <div className="flex items-center space-x-2">
+              <button
+                className="inline-flex items-center gap-2 ml-2 rounded  bg-dark px-8 py-3 text-white "
+                disabled={currentPage === 1}
+                onClick={goToPreviousPage}
+              >
+                <span className="text-sm font-medium"> Previous </span>
+                <IoMdArrowDropleftCircle />
+              </button>
 
-              <button 	
-				className="inline-flex items-center gap-2 ml-2 rounded border border-black bg-secondary px-8 py-3 text-white " 
-			  	disabled={currentPage === 1} 
-				onClick={goToPreviousPage}>
-				<span className="text-sm font-medium"> Previous </span>
-				<IoMdArrowDropleftCircle />
-			  </button>
-
-              <button 
-			  	className="inline-flex items-center gap-2 rounded border border-black bg-secondary px-8 py-3 text-white" 
-			  	disabled={currentPage === totalPages} 
-				onClick={goToNextPage}><IoMdArrowDroprightCircle />
-			  	<span className="text-sm font-medium"> Next </span>
-			  </button>
-			  
+              <button
+                className="inline-flex items-center gap-2 rounded  bg-dark px-8 py-3 text-white"
+                disabled={currentPage === totalPages}
+                onClick={goToNextPage}
+              >
+                <IoMdArrowDroprightCircle />
+                <span className="text-sm font-medium"> Next </span>
+              </button>
             </div>
           </div>
         </section>

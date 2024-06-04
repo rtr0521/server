@@ -1,4 +1,3 @@
-
 import { Sidebar } from "./Sidebar/sidebar";
 import { LineGraph } from "./Charts/line";
 import { BarGraph } from "./Charts/bar";
@@ -112,10 +111,7 @@ const adminAnalytics = () => {
               </h1>
               <BarGraph />
             </div>
-            <div className="col-span-2 shadow-md rounded-md w-full h-96 p-3 bg-dark">
-              <h1 className="text-white text-xl font-bold">Every Year</h1>
-              <LineGraph />
-            </div>
+
           </div>
         </section>
       </div>

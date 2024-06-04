@@ -21,6 +21,8 @@ export const lineChartData = {
     },
     ],
 };
+
+
 /* 
 export const barChartData = {
     labels: ['Brigada', 'Checkpoint', 'Training', 'Exercise', 'Firing'],

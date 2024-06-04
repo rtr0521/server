@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 body{
 
   background-image: url(../src/assets/images/bg.png);
@@ -92,6 +95,36 @@ right: -65%;
 border-radius: 3px;
 animation: roadAnimation 1.4s linear infinite;
 border-left: 4px solid white;
+}
+
+/* for NoFoungPage */
+
+body {
+  font-family: 'Arvo', serif;
+}
+
+.page_404 img { 
+  width: 100%;
+}
+
+.four_zero_four_bg h1 {
+  font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+  font-size: 80px;
+}
+
+.link_404 {			 
+  color: #fff!important;
+  padding: 10px 20px;
+  background: #39ac31;
+  margin: 20px 0;
+  display: inline-block;
+}
+
+.contant_box_404 { 
+  margin-top: -50px;
 }
 
 .lampPost {

@@ -163,12 +163,37 @@ exports.deleteAdminActivity = async (req, res) => {
   }
 };
 
-exports.deleteAdminActivity = async (req, res) => {
+
+exports.updateAdminActivity = async (req, res) => {
   try {
-    await UserActivities.findByIdAndDelete(req.params.id);
-    res.status(204).send();
-  } catch (error) {
-    res.status(400).send(error);
+    const activityId = req.params.id; 
+    const updatedActivityData = req.body;
+
+    // Input Validation (Optional but recommended)
+    if (!updatedActivityData.name || !updatedActivityData.description) {
+      return res.status(400).json({ message: 'Activity name and description are required' });
+    }
+
+    // Update Activity in Database
+    const updatedActivity = await UserActivities.findByIdAndUpdate(
+      activityId,
+      updatedActivityData,
+      { new: true } // To return the updated document
+    );
+
+    if (!updatedActivity) {
+      return res.status(404).json({ message: 'Activity not found' });
+    }
+
+    res.status(200).json(updatedActivity); 
+  } catch (err) {
+    console.error('Error updating activity:', err); 
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ message: err.message }); // Handle validation errors
+    } else if (err.name === 'CastError' && err.kind === 'ObjectId') {
+      return res.status(400).json({ message: 'Invalid activity ID' }); // Handle invalid ID
+    }
+    res.status(500).json({ message: 'Internal server error' }); // Catch-all for other errors
   }
 };
 
@@ -307,6 +332,16 @@ exports.getAdminUsers = async (req, res) => {
       res.json(users);
   } catch (err) {
       res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deleteAdminUsersList = async (req, res) => {
+  const { ids } = req.body;
+  try {
+      await User.deleteMany({ _id: { $in: ids } });
+      res.status(200).json({ message: 'Users deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ message: 'Error deleting users', error });
   }
 };
 

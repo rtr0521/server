@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Spinner from './components/pages/users/Home/Spinner'; 
 import Signup from './components/pages/users/Auth/registration';
 import Login from './components/pages/users/Auth/login';
@@ -12,8 +12,10 @@ import AuthAdmin from './components/pages/admin/auth';
 import AdminAnalytics from './components/pages/admin/Home/adminAnalytics';
 import AdminActivities from './components/pages/admin/Home/adminActivities';
 import AdminTask from './components/pages/admin/Home/adminTask';
-
+import Pending from './components/pages/admin/Home/pending';
+import Page404 from './Page404'
 import './App.css';
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -43,12 +45,15 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/activities/:id" element={<Activities />} />
 
-          
           {/* Admin */}
           <Route path="/admin/auth" element={<AuthAdmin />} />
-          <Route path="/adminAnalytics" element={<AdminAnalytics />} />
-          <Route path="/adminActivities" element={<AdminActivities />} />
-          <Route path="/adminTask/:id" element={<AdminTask />} />
+          <Route path="/admin/Analytics" element={<AdminAnalytics />} />
+          <Route path="/admin/Activities" element={<AdminActivities />} />
+          <Route path="/admin/users" element={<Pending />} />
+          <Route path="/admin/Task/:id" element={<AdminTask />} />
+
+          {/* Catch-all route for handling 404 errors */}
+          <Route path="*" element={<Page404 />} /> 
 
         </Routes>
       </div>

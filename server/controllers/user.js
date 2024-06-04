@@ -207,6 +207,10 @@ exports.login = async (req, res) => {
     }
 };
 
+exports.logout =  (req, res) => {
+  // Clear the token or invalidate the session
+  res.sendStatus(200);
+};
 
 
 // Emailling Configure nodemailer

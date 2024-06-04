@@ -29,7 +29,7 @@ function AuthAdmin() {
             if (response.status === 200) {
                 alert('Login successful!');
                 // Redirect the user to the admin dashboard
-                navigate('/adminAnalytics');
+                navigate('/admin/Analytics');
             } else {
                 // Handle unsuccessful authentication
                 setMessage('Authentication failed. Please check your credentials.');

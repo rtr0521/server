@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { HiOutlineViewGrid } from "react-icons/hi";
-import { IoMdExit } from "react-icons/io";
-import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { HiOutlineViewGrid } from 'react-icons/hi';
+import { IoMdExit } from 'react-icons/io';
+import { TbLayoutSidebarLeftCollapseFilled } from 'react-icons/tb';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarData = [
   {
     title: 'View Activities',
     icon: <HiOutlineViewGrid />,
-    path: '/userdashboard'
+    path: '/userdashboard',
   },
   {
     title: 'Logout',
     icon: <IoMdExit />,
     path: '/login',
-    cName: 'logout'
-  }
+    cName: 'logout',
+  },
 ];
 
 export const Sidebar = () => {
-  const [profileInfo, setProfileInfo] = useState({ fullname: "", profilePicture: "" });
+  const [profileInfo, setProfileInfo] = useState({ fullname: '', profilePicture: '' });
   const [isCollapsed, setIsCollapsed] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export const Sidebar = () => {
 
   const fetchProfileInfo = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/profile/:id");
+      const response = await axios.get('http://localhost:5000/profile/:id');
       setProfileInfo(response.data);
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -49,14 +49,14 @@ export const Sidebar = () => {
   };
 
   return (
-    <nav className={`h-full shadow-2xl text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'}`}>
+    <nav className={` h-screen shadow-2xl text-white flex flex-col ${isCollapsed ? 'w-20' : 'w-64'}`}>
       <button onClick={toggleSidebar} className="hidden lg:text-xl lg:flex lg:items-center lg:justify-end lg:mt-5 ">
         <TbLayoutSidebarLeftCollapseFilled />
       </button>
       <div className="p-3 flex items-center justify-between flex-col">
         {!isCollapsed && (
           <div className="hidden lg:profile-info lg:flex lg:items-center lg:justify-center lg:flex-col">
-            <span className='text-xl font-bold text-gray-400'>Trello</span>
+            <span className="text-xl font-bold text-gray-400">Trello</span>
           </div>
         )}
       </div>

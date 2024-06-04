@@ -33,7 +33,7 @@ export const SidebarData = [
     },
 
     {
-      title: 'Manage User Profile',
+      title: 'Manage User',
       icon: <CgProfile />,
       path: '/admin/users'
     },

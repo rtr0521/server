@@ -97,7 +97,7 @@ function Login() {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 mt-1 text-sm bg-transparent border border-white text-black rounded-lg focus:outline-none focus:border-purple-blue-500"
+                className="w-full px-4 py-3 mt-1 text-sm bg-transparent border border-white text-white rounded-lg focus:outline-none focus:border-purple-blue-500"
                 value={password}
                 onChange={handlePasswordChange}
               />

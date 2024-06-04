@@ -243,9 +243,7 @@ const UserDashboard = () => {
           <div className="flex justify-between items-center">
             <div className="hidden lg:flex">
               <button className="btn btn-primary mr-2 w-32">View All</button>
-              <button className="btn btn-outline mr-2 w-32">In Progress</button>
-              <button className="btn btn-outline mr-2 w-32">Done</button>
-              <button className="btn btn-outline w-32">Undone</button>
+             
             </div>
             <div className="w-96 flex items-center justify-center">
               <button
@@ -273,10 +271,13 @@ const UserDashboard = () => {
                     Activities <FaCaretDown className="ml-2" />
                   </th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Progress</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Start Date</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">End Date</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Edit</th>
-                  <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Delete</th>
+                  <div className="hidden lg:flex lg:items-center lg:justify-between">
+                    <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Start Date</th>
+                    <th className=" whitespace-nowrap px-4 py-2 font-bold text-white">End Date</th>
+                    <th className=" whitespace-nowrap px-4 py-2 font-bold text-white">Edit</th>
+                    <th className="last:whitespace-nowrap px-4 py-2 font-bold text-white">Delete</th>
+                  </div>
+                  
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -294,15 +295,16 @@ const UserDashboard = () => {
                         variant={activityProgress[activity._id]?.variant}
                       />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
+                    <div className="hidden lg:flex lg:items-center lg:justify-between mt-7 lg:w-full">
+                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-white">
                       {activity ? new Date(activity.dateStart).toLocaleDateString() : 'Loading...'}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
+                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-white">
                       {activity ? new Date(activity.dateEnd).toLocaleDateString() : 'Loading...'}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <td className=" whitespace-nowrap px-4 py-2 text-gray-900">
                       <button
-                        className="text-blue-500"
+                        className="text-blue-500 "
                         onClick={() => {
                           handleEdit(activity);
                           document.getElementById('my_modal_5').showModal();
@@ -311,11 +313,13 @@ const UserDashboard = () => {
                         <FaRegEdit />
                       </button>
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    <td className=" whitespace-nowrap px-4 py-2 mr-3 text-gray-900">
                       <button className="text-red-500" onClick={() => handleDelete(activity._id)}>
                         <FaRegTrashCan />
                       </button>
                     </td>
+                    </div>
+                    
                   </tr>
                 ))}
               </tbody>

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import * as Io from "react-icons/io5";
-import ProgressBar from 'react-bootstrap/ProgressBar'; 
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { IoMdAdd } from "react-icons/io";
-import { FaCaretDown } from "react-icons/fa";
-import { GoDotFill } from "react-icons/go";
-import { FaRegTrashCan } from "react-icons/fa6";
-import { FaRegEdit } from "react-icons/fa";
-import { IoMdArrowDropleftCircle, IoMdArrowDroprightCircle } from "react-icons/io";
+import * as Io from 'react-icons/io5';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { IoMdAdd } from 'react-icons/io';
+import { FaCaretDown } from 'react-icons/fa';
+import { GoDotFill } from 'react-icons/go';
+import { FaRegTrashCan } from 'react-icons/fa6';
+import { FaRegEdit } from 'react-icons/fa';
+import { IoMdArrowDropleftCircle, IoMdArrowDroprightCircle } from 'react-icons/io';
 import { Sidebar } from './Sidebar/sidebar';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const UserDashboard = () => {
   const [activity, setActivity] = useState({
@@ -18,7 +18,7 @@ const UserDashboard = () => {
     description: '',
     dateStart: '',
     dateEnd: '',
-    status: 'Todo'
+    status: 'Todo',
   });
   const [activities, setActivities] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -30,11 +30,11 @@ const UserDashboard = () => {
   const [error, setError] = useState(null);
   const [selectedActivities, setSelectedActivities] = useState([]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setActivity((prevActivity) => ({
+    setActivity(prevActivity => ({
       ...prevActivity,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -60,16 +60,16 @@ const UserDashboard = () => {
     }
   };
 
-  const handleEdit = (activity) => {
+  const handleEdit = activity => {
     setEditing(true);
     setCurrentActivityId(activity._id);
     setActivity(activity);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     try {
       await axios.delete(`http://localhost:5000/admin/adminActivities/${id}`);
-      setActivities((prevActivities) => prevActivities.filter((act) => act._id !== id));
+      setActivities(prevActivities => prevActivities.filter(act => act._id !== id));
     } catch (error) {
       console.error('Error deleting activity:', error);
     }
@@ -81,12 +81,12 @@ const UserDashboard = () => {
       description: '',
       dateStart: '',
       dateEnd: '',
-      status: 'Todo'
+      status: 'Todo',
     });
     setEditing(false);
     setCurrentActivityId(null);
   };
-  
+
   useEffect(() => {
     const fetchActivitiesWithProgress = async () => {
       try {
@@ -97,44 +97,45 @@ const UserDashboard = () => {
             limit: 3,
           },
         });
-  
+
         const activities = activitiesResponse.data.activities;
         setActivities(activities);
         setTotalPages(activitiesResponse.data.totalPages);
-  
+
         const newActivityProgress = {};
         for (const activity of activities) {
           const taskResponse = await axios.get(`http://localhost:5000/admin/adminActivities/${activity._id}/tasks`);
           const tasksData = taskResponse.data;
-  
-          // Progress Calculation 
+
+          // Progress Calculation
           const totalTasks = tasksData.length;
           const completedTasks = tasksData.filter(task => task.status === 'done').length;
-          const inProgressTasks = tasksData.filter(task => task.status === 'inProgress').length; 
+          const inProgressTasks = tasksData.filter(task => task.status === 'inProgress').length;
           const progress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
-  
+
           // Progress Variant (Color) - Corrected
-          let progressVariant = 'danger'; 
-          if (inProgressTasks > 0) { // Check if there are any in-progress tasks
+          let progressVariant = 'danger';
+          if (inProgressTasks > 0) {
+            // Check if there are any in-progress tasks
             progressVariant = 'warning'; // Yellow if there's at least one task in progress
-          } else if (completedTasks === totalTasks) { // Check if all tasks are done
+          } else if (completedTasks === totalTasks) {
+            // Check if all tasks are done
             progressVariant = 'success'; // Green if all tasks are done
           }
-  
+
           newActivityProgress[activity._id] = { value: progress, variant: progressVariant };
         }
-  
+
         setActivityProgress(newActivityProgress);
       } catch (error) {
         console.error('Error fetching activities:', error);
       }
     };
-  
+
     fetchActivitiesWithProgress();
-  }, [searchQuery, currentPage]); 
+  }, [searchQuery, currentPage]);
 
-
-  const handleSelectAll = (e) => {
+  const handleSelectAll = e => {
     if (e.target.checked) {
       setSelectedActivities(activities.map(activity => activity._id));
     } else {
@@ -149,19 +150,18 @@ const UserDashboard = () => {
       setSelectedActivities(selectedActivities.filter(activityId => activityId !== id));
     }
   };
-  
 
   const handleDeleteSelected = async () => {
     try {
       await axios.delete(`http://localhost:5000/admin/adminActivities`, { data: { ids: selectedActivities } });
-      setActivities((prevActivities) => prevActivities.filter((activity) => !selectedActivities.includes(activity._id)));
+      setActivities(prevActivities => prevActivities.filter(activity => !selectedActivities.includes(activity._id)));
       setSelectedActivities([]);
     } catch (error) {
       console.error('Error deleting selected activities:', error);
     }
   };
-  
-  const handleSearchChange = (e) => {
+
+  const handleSearchChange = e => {
     setSearchQuery(e.target.value);
     setCurrentPage(1); // Reset to first page on new search
   };
@@ -180,35 +180,36 @@ const UserDashboard = () => {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      <div className='w-full xl:flex-grow'>
-        <header className='flex items-center justify-between w-full h-32 p-7'>
+      <div className="w-full xl:flex-grow">
+        <header className="flex items-center justify-between w-full h-32 lg:p-7">
           <div className="header-container">
-            <div className="header-info flex items-center justify-center">
-              <h1 className='text-2xl font-bold text-white'>Admin Monitoring</h1>
-              <span className='hidden bg-transparent border-1 border-white rounded-2xl p-2 text-white'>70 Platoon</span>
+            <div className="header-info">
+              <h1 className="text-2xl font-bold text-white">Admin Monitoring</h1>
+              <span className="hidden bg-transparent border-1 border-white rounded-2xl p-2 text-white">70 Platoon</span>
             </div>
             <div className="header-sub">
-              <p className=' text-md text-gray-500'>Keep track of vendor and their security ratings.</p>
+              <p className=" text-md text-gray-300">Keep track of military activities and manage their activities.</p>
             </div>
           </div>
           <div className="button">
-            
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-              <div className="modal-box  border-black border-1">
-                <h3 className="font-bold text-lg bg-transparent border-b border-white text-black x">Add a To Do! ✏️</h3>
+            <dialog id="my_modal_5" className="modal sm:modal-middle">
+              <div className="modal-box border border-white">
+                <h3 className="font-bold text-lg bg-transparent border-b border-white text-white x">Add a To Do! ✏️</h3>
                 <form onSubmit={handleSubmit}>
                   <div className="py-4 text-gray-400">Activity Name: </div>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="name"
                     value={activity.name}
                     onChange={handleChange}
-                    placeholder="Enter Activity" 
-                    className="input input-bordered w-full bg-transparent border border-black text-black" 
+                    placeholder="Enter Activity"
+                    className="input input-bordered w-full bg-transparent border border-white text-white"
                     required
                   />
                   <div>
-                    <label htmlFor="Description" className="block text-md font-medium text-gray-400 my-3">Description: </label>
+                    <label htmlFor="Description" className="block text-md font-medium text-gray-400 my-3">
+                      Description:{' '}
+                    </label>
                     <textarea
                       id="Description"
                       name="description"
@@ -219,85 +220,68 @@ const UserDashboard = () => {
                       placeholder="Enter any additional order notes..."
                       required
                     ></textarea>
-
                   </div>
                   <div className="py-4 text-gray-400">Choose a Date: </div>
                   <div className="flex items-center justify-center mb-6">
-                    <input 
-                      type="date" 
+                    <input
+                      type="date"
                       name="dateStart"
                       value={activity.dateStart}
                       onChange={handleChange}
-                      className='bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full' 
+                      className="bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full"
                       required
                     />
-                    <input 
-                      type="date" 
+                    <input
+                      type="date"
                       name="dateEnd"
                       value={activity.dateEnd}
                       onChange={handleChange}
-                      className='bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full' 
+                      className="bg-white border border-black rounded-lg px-4 py-2 mb-3 w-full"
                       required
                     />
                   </div>
 
-              
                   <div className="modal-action">
                     <button className="btn btn-primary text-white mr-2" type="submit" onClick={handleSubmit}>
                       {editing ? 'Update' : 'Submit'}
                     </button>
-                    <button type="button" className="btn bg-white text-black" onClick={() => {
-                      clearForm();
-                      document.getElementById('my_modal_5').close();
-                      handleAfterSubmit();
-                    }}>Close</button>
+                    <button
+                      type="button"
+                      className="btn bg-white text-black"
+                      onClick={() => {
+                        clearForm();
+                        document.getElementById('my_modal_5').close();
+                        handleAfterSubmit();
+                      }}
+                    >
+                      Close
+                    </button>
                   </div>
                 </form>
               </div>
             </dialog>
-          </div>        
+          </div>
         </header>
-        <section className='w-full h-5/6  p-7'>
+        <section className="w-96 lg:w-full lg:p-7">
           <div className="flex justify-between items-center">
-            <div className='hidden'>
-              <button className="btn btn-primary mr-2 w-32">View All</button>
-              <button className="btn btn-outline mr-2 w-32">In Progress</button>
-              <button className="btn btn-outline mr-2 w-32">Done</button>
-              <button className="btn btn-outline w-32">Undone</button>
-            </div>
-            <div className="w-96 flex items-center justify-center">
-              <label htmlFor="Search" className="sr-only">Search</label>
-              <input
-                type="text"
-                id="Search"
-                placeholder="Search for..."
-                className="w-96 hidden rounded-md border-1 mr-3 border-gray-300 shadow-md p-3 pe-10 sm:text-sm"
-                value={searchQuery}
-                onChange={handleSearchChange}
-              />
-              <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-                <button type="button" className="text-gray-600 hover:text-gray-700">
-                  <span className="sr-only">Search</span>
-                  <Io.IoSearchSharp />
-                </button>         
-              </span>
-              <button 
-              className="btn w-full gap-2 rounded border-transparent btn-primary px-8 py-3" 
-              onClick={() => {
-                clearForm();
-                document.getElementById('my_modal_5').showModal();
-              }}
-            >
-              <IoMdAdd /> Add Activity
-            </button>
-            </div>
-            <button 
-              className="btn bg-red-500 text-white"
+            <div className="w-full flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-between">
+              <button
+                className="btn w-96 gap-2 mb-2 lg:mb-0 rounded border-transparent btn-primary px-8 py-3"
+                onClick={() => {
+                  clearForm();
+                  document.getElementById('my_modal_5').showModal();
+                }}
+              >
+                <IoMdAdd /> Add Activity
+              </button>
+              <button
+              className="btn w-96 bg-red-500 text-white"
               onClick={handleDeleteSelected}
               disabled={selectedActivities.length === 0}
             >
               Delete Selected
             </button>
+            </div>
             
           </div>
           <div className="overflow-x-auto mt-12 shadow-md rounded-lg">
@@ -305,10 +289,20 @@ const UserDashboard = () => {
               <thead className="ltr:text-left rtl:text-right">
                 <tr>
                   <th className="px-4 py-6">
-                    <label htmlFor="SelectAll" className="sr-only">Select All</label>
-                    <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" onChange={handleSelectAll}/>
+                    <label htmlFor="SelectAll" className="sr-only">
+                      Select All
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="SelectAll"
+                      className="size-5 rounded border-gray-300"
+                      onChange={handleSelectAll}
+                    />
                   </th>
-                  <th className="inline-flex items-center justify-start text-white mt-3 whitespace-nowrap px-4 py-2 font-bold"> Activities <FaCaretDown className='ml-2'/></th>
+                  <th className="inline-flex items-center justify-start text-white mt-3 whitespace-nowrap px-4 py-2 font-bold">
+                    {' '}
+                    Activities <FaCaretDown className="ml-2" />
+                  </th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Progress</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">Start Date</th>
                   <th className="whitespace-nowrap px-4 py-2 font-bold text-white">End Date</th>
@@ -317,14 +311,14 @@ const UserDashboard = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {activities.map((activity) => (
+                {activities.map(activity => (
                   <tr key={activity._id}>
                     <td className="px-4 py-5">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         className="size-5 rounded border-gray-300"
                         checked={selectedActivities.includes(activity._id)}
-                        onChange={(e) => handleCheckboxChange(e, activity._id)}
+                        onChange={e => handleCheckboxChange(e, activity._id)}
                       />
                     </td>
                     <td className="whitespace-nowrap px-4 py-2  font-medium text-white">
@@ -332,30 +326,45 @@ const UserDashboard = () => {
                     </td>
 
                     <td className="whitespace-nowrap px-4 py-2 text-gray-400">
-                        <ProgressBar now={activityProgress[activity._id]?.value || 0} label={`${activityProgress[activity._id]?.value || 0}%`} variant={activityProgress[activity._id]?.variant} />
+                      <ProgressBar
+                        now={activityProgress[activity._id]?.value || 0}
+                        label={`${activityProgress[activity._id]?.value || 0}%`}
+                        variant={activityProgress[activity._id]?.variant}
+                      />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateStart).toLocaleDateString() : "Loading..."}</td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">{activity ? new Date(activity.dateEnd).toLocaleDateString() : "Loading..."}</td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
+                      {activity ? new Date(activity.dateStart).toLocaleDateString() : 'Loading...'}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-white">
+                      {activity ? new Date(activity.dateEnd).toLocaleDateString() : 'Loading...'}
+                    </td>
 
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      <button className='text-blue-500' onClick={() => {
-                        handleEdit(activity);
-                        document.getElementById('my_modal_5').showModal();
-                      }}>
+                      <button
+                        className="text-blue-500"
+                        onClick={() => {
+                          handleEdit(activity);
+                          document.getElementById('my_modal_5').showModal();
+                        }}
+                      >
                         <FaRegEdit />
                       </button>
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      <button className='text-red-500' onClick={() => handleDelete(activity._id)}><FaRegTrashCan /></button>
+                      <button className="text-red-500" onClick={() => handleDelete(activity._id)}>
+                        <FaRegTrashCan />
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className='flex items-center justify-between mt-10'>
+          <div className="flex items-center justify-between mt-10">
             <div>
-				<h1 className='text-md font-medium text-gray-500'>Page {currentPage} of {totalPages}</h1>
+              <h1 className="text-md font-medium text-gray-500">
+                Page {currentPage} of {totalPages}
+              </h1>
             </div>
             <div className="flex items-center space-x-2">
               <button

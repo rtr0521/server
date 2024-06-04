@@ -18,7 +18,7 @@ const adminAnalytics = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/activities/total'); // Assuming this is your API endpoint
+        const response = await fetch('https://server-3uk1.onrender.com/admin/activities/total'); // Assuming this is your API endpoint
         const data = await response.json();
         setTotalActivities(data.totalActivities);
         setTotalProjects(data.totalProjects); // Update totalProjects state
@@ -33,7 +33,7 @@ const adminAnalytics = () => {
   useEffect(() => {
     const fetchTaskStats = async () => {
       try {
-        const response = await fetch('http://localhost:5000/admin/task/TotalTasks');
+        const response = await fetch('https://server-3uk1.onrender.com/admin/task/TotalTasks');
         const data = await response.json();
         setOnProgress(data.totalOnProgress);
         setDone(data.totalDone);

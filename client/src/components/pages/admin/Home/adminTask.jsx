@@ -28,7 +28,7 @@ const Activities = () => {
     const fetchTask = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/activities/${id}/tasks`
+          `https://server-3uk1.onrender.com/activities/${id}/tasks`
         );
         const tasksData = response.data;
 
@@ -56,7 +56,7 @@ const Activities = () => {
     const fetchActivity = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/activities/${id}`
+          `https://server-3uk1.onrender.com/activities/${id}`
         );
         setActivity(response.data);
       } catch (error) {
@@ -80,7 +80,7 @@ const Activities = () => {
     if (newTaskDescription.trim()) {
       try {
         const response = await axios.post(
-          `http://localhost:5000/activities/${id}/tasks`,
+          `https://server-3uk1.onrender.com/activities/${id}/tasks`,
           { description: newTaskDescription }
         );
         const newTask = response.data.newTask;
@@ -97,7 +97,7 @@ const Activities = () => {
   const moveToInProgress = async (taskId) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/tasks/status/${taskId}`,
+        `https://server-3uk1.onrender.com/tasks/status/${taskId}`,
         { status: "inProgress" }
       );
       if (response.status === 200) {
@@ -116,7 +116,7 @@ const Activities = () => {
   const moveToDone = async (taskId) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/tasks/status/${taskId}`,
+        `https://server-3uk1.onrender.com/tasks/status/${taskId}`,
         { status: "done" }
       ); // Changed status to 'done'
       if (response.status === 200) {
@@ -138,7 +138,7 @@ const Activities = () => {
         todos.find((task) => task._id === taskId) ||
         inProgress.find((task) => task._id === taskId);
       if (taskToDelete) {
-        await axios.delete(`http://localhost:5000/tasks/${taskId}`);
+        await axios.delete(`https://server-3uk1.onrender.com/tasks/${taskId}`);
         setTodos(todos.filter((task) => task._id !== taskId));
         setInProgress(inProgress.filter((task) => task._id !== taskId));
         setDone(done.filter((task) => task._id !== taskId));
@@ -164,7 +164,7 @@ const Activities = () => {
         inProgress.find((task) => task._id === currentEditId);
       if (taskToUpdate) {
         const response = await axios.put(
-          `http://localhost:5000/tasks/${currentEditId}`,
+          `https://server-3uk1.onrender.com/tasks/${currentEditId}`,
           { description: editDescription }
         );
         const updatedTask = response.data;

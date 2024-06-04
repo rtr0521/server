@@ -30,7 +30,7 @@ export const Sidebar = () => {
 
   const fetchProfileInfo = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/profile/:id');
+      const response = await axios.get('https://server-3uk1.onrender.com/profile/:id');
       setProfileInfo(response.data);
     } catch (error) {
       console.error('Error fetching user profile:', error);

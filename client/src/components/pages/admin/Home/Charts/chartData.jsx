@@ -38,7 +38,7 @@ export const barChartData = {
 
 export const fetchTaskStats = async () => {
     try {
-        const response = await axios.get('http://localhost:5000/admin/task/PieSummary');
+        const response = await axios.get('https://server-3uk1.onrender.com/admin/task/PieSummary');
         return response.data;
     } catch (error) {
         console.error('Error fetching task statistics:', error.message);

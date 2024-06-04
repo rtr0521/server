@@ -19,7 +19,7 @@ export const TableAdmin = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/adminUser/list');
+      const response = await axios.get('https://server-3uk1.onrender.com/admin/adminUser/list');
       return response.data;
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -29,7 +29,7 @@ export const TableAdmin = () => {
 
   const deleteUser = async userId => {
     try {
-      await axios.delete(`http://localhost:5000/admin/adminUser/list/${userId}`);
+      await axios.delete(`https://server-3uk1.onrender.com/admin/adminUser/list/${userId}`);
       setUsers(users.filter(user => user._id !== userId));
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -54,7 +54,7 @@ export const TableAdmin = () => {
 
   const deleteSelectedUsers = async () => {
     try {
-      await axios.delete('http://localhost:5000/admin/adminListUser/list', { data: { ids: selectedUsers } });
+      await axios.delete('https://server-3uk1.onrender.com/admin/adminListUser/list', { data: { ids: selectedUsers } });
       setUsers(users.filter(user => !selectedUsers.includes(user._id)));
       setSelectedUsers([]);
     } catch (error) {

@@ -39,7 +39,7 @@ const UserDashboard = () => {
     e.preventDefault();
     try {
       if (editing) {
-        const response = await axios.put(`http://localhost:5000/activities/${currentActivityId}`, activity);
+        const response = await axios.put(`https://server-3uk1.onrender.com/activities/${currentActivityId}`, activity);
         setActivities(prevActivities =>
           prevActivities.map(act => (act._id === currentActivityId ? response.data : act)),
         );
@@ -47,7 +47,7 @@ const UserDashboard = () => {
         setCurrentActivityId(null);
         document.getElementById('my_modal_5').close();
       } else {
-        const response = await axios.post('http://localhost:5000/activities', activity);
+        const response = await axios.post('https://server-3uk1.onrender.com/activities', activity);
         setActivities(prevActivities => [...prevActivities, response.data]);
       }
       clearForm();
@@ -65,7 +65,7 @@ const UserDashboard = () => {
 
   const handleDelete = async id => {
     try {
-      await axios.delete(`http://localhost:5000/activities/${id}`);
+      await axios.delete(`https://server-3uk1.onrender.com/activities/${id}`);
       setActivities(prevActivities => prevActivities.filter(act => act._id !== id));
     } catch (error) {
       console.error('Error deleting activity:', error);
@@ -87,7 +87,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchActivitiesWithProgress = async () => {
       try {
-        const activitiesResponse = await axios.get('http://localhost:5000/activities', {
+        const activitiesResponse = await axios.get('https://server-3uk1.onrender.com/activities', {
           params: {
             search: searchQuery,
             page: currentPage,
@@ -101,7 +101,7 @@ const UserDashboard = () => {
 
         const newActivityProgress = {};
         for (const activity of activities) {
-          const taskResponse = await axios.get(`http://localhost:5000/activities/${activity._id}/tasks`);
+          const taskResponse = await axios.get(`https://server-3uk1.onrender.com/activities/${activity._id}/tasks`);
           const tasksData = taskResponse.data;
 
           // Progress Calculation

@@ -67,7 +67,7 @@ function RegistrationForm() {
       formData.append("profilePicture", profilePicture);
 
       const response = await axios.post(
-        "http://localhost:5000/signup",
+        "https://server-3uk1.onrender.com/signup",
         formData,
         {
           headers: {

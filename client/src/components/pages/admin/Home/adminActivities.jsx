@@ -42,7 +42,7 @@ const UserDashboard = () => {
     e.preventDefault();
     try {
       if (editing) {
-        const response = await axios.put(`http://localhost:5000/admin/adminActivities/${currentActivityId}`, activity);
+        const response = await axios.put(`https://server-3uk1.onrender.com/admin/adminActivities/${currentActivityId}`, activity);
         setActivities(prevActivities =>
           prevActivities.map(act => (act._id === currentActivityId ? response.data : act)),
         );
@@ -50,7 +50,7 @@ const UserDashboard = () => {
         setCurrentActivityId(null);
         document.getElementById('my_modal_5').close();
       } else {
-        const response = await axios.post('http://localhost:5000/admin/adminActivities', activity);
+        const response = await axios.post('https://server-3uk1.onrender.com/admin/adminActivities', activity);
         setActivities(prevActivities => [...prevActivities, response.data]);
       }
       clearForm();
@@ -68,7 +68,7 @@ const UserDashboard = () => {
 
   const handleDelete = async id => {
     try {
-      await axios.delete(`http://localhost:5000/admin/adminActivities/${id}`);
+      await axios.delete(`https://server-3uk1.onrender.com/admin/adminActivities/${id}`);
       setActivities(prevActivities => prevActivities.filter(act => act._id !== id));
     } catch (error) {
       console.error('Error deleting activity:', error);
@@ -90,7 +90,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchActivitiesWithProgress = async () => {
       try {
-        const activitiesResponse = await axios.get('http://localhost:5000/admin/adminActivities', {
+        const activitiesResponse = await axios.get('https://server-3uk1.onrender.com/admin/adminActivities', {
           params: {
             search: searchQuery,
             page: currentPage,
@@ -104,7 +104,7 @@ const UserDashboard = () => {
 
         const newActivityProgress = {};
         for (const activity of activities) {
-          const taskResponse = await axios.get(`http://localhost:5000/admin/adminActivities/${activity._id}/tasks`);
+          const taskResponse = await axios.get(`https://server-3uk1.onrender.com/admin/adminActivities/${activity._id}/tasks`);
           const tasksData = taskResponse.data;
 
           // Progress Calculation
@@ -153,7 +153,7 @@ const UserDashboard = () => {
 
   const handleDeleteSelected = async () => {
     try {
-      await axios.delete(`http://localhost:5000/admin/adminActivities`, { data: { ids: selectedActivities } });
+      await axios.delete(`https://server-3uk1.onrender.com/admin/adminActivities`, { data: { ids: selectedActivities } });
       setActivities(prevActivities => prevActivities.filter(activity => !selectedActivities.includes(activity._id)));
       setSelectedActivities([]);
     } catch (error) {

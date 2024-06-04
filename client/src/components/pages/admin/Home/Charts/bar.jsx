@@ -26,7 +26,7 @@ const useBarChartData = () => {  // Modified function
     useEffect(() => {
         const fetchDuplicateActivities = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/admin/activities/duplicates'); // Make sure this matches your backend endpoint
+                const response = await axios.get('https://server-3uk1.onrender.com/admin/activities/duplicates'); // Make sure this matches your backend endpoint
                 const data = response.data;
 
                 setBarChartData({

@@ -23,7 +23,7 @@ const Profile = ({ userId }) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/profileSetting/${userId}`);
+                const response = await axios.get(`https://server-3uk1.onrender.com/profileSetting/${userId}`);
                 const data = response.data;
                 if (data) {
                     setProfile({
@@ -77,7 +77,7 @@ const Profile = ({ userId }) => {
                 password: profile.password,
                 profilePicture: profile.profilePicture,
             };
-            const response = await axios.put(`http://localhost:5000/profileSetting/${userId}`, updatedUser);
+            const response = await axios.put(`https://server-3uk1.onrender.com/profileSetting/${userId}`, updatedUser);
             if (response.data) {
                 alert("Profile updated successfully!");
             } else {
